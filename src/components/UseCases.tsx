@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import Reveal from "./Reveal";
+import StaticImage from "./StaticImage";
 import CodeBlock from "./CodeBlock";
 import { Eyebrow, SplitHeading } from "./ui";
 
@@ -123,11 +123,11 @@ export default function UseCases() {
 
         <Reveal delay={0.1}>
           <div className="relative mt-6 overflow-hidden rounded-2xl border border-white/[0.06]">
-            <Image
+            <StaticImage
               src="/assets/painting-hero.png"
               alt=""
-              width={2912}
-              height={1632}
+              width={1632}
+              height={918}
               className="absolute inset-0 h-full w-full object-cover"
             />
             <div className="relative grid place-items-center px-4 py-16 sm:py-24">

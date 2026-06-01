@@ -1,5 +1,5 @@
-import Image from "next/image";
 import Reveal from "./Reveal";
+import StaticImage from "./StaticImage";
 import { Eyebrow, SplitHeading } from "./ui";
 
 type Author = { name: string; role: string; avatar: string };
@@ -76,7 +76,7 @@ function TestimonialCard({ card }: { card: Card }) {
       <p className="text-[14px] leading-[1.5] text-white/80">{card.quote}</p>
       {card.author && (
         <div className="mt-5 flex items-center gap-3 border-t border-white/[0.06] pt-4">
-          <Image
+          <StaticImage
             src={card.author.avatar}
             alt={card.author.name}
             width={40}

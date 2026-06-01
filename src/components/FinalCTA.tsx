@@ -1,5 +1,5 @@
-import Image from "next/image";
 import Reveal from "./Reveal";
+import StaticImage from "./StaticImage";
 
 export default function FinalCTA() {
   return (
@@ -25,19 +25,19 @@ export default function FinalCTA() {
             </div>
 
             <div className="relative overflow-hidden rounded-2xl border border-white/[0.06]">
-              <Image
+              <StaticImage
                 src="/assets/painting-cta.png"
                 alt=""
-                width={2912}
-                height={1632}
+                width={1632}
+                height={918}
                 className="absolute inset-0 h-full w-full object-cover"
               />
               <div className="relative px-6 pt-8 sm:px-10 sm:pt-10">
-                <Image
+                <StaticImage
                   src="/assets/ide-full.jpg"
                   alt="Exact code editor"
-                  width={2880}
-                  height={1840}
+                  width={1840}
+                  height={1160}
                   className="w-full rounded-t-xl border border-black/40 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.7)]"
                 />
               </div>

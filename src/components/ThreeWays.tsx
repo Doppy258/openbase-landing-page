@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import { Copy, Check, Download, ExternalLink } from "lucide-react";
+import StaticImage from "./StaticImage";
 import Reveal from "./Reveal";
 import { Eyebrow, SplitHeading } from "./ui";
 
@@ -41,7 +41,12 @@ function Card({
   return (
     <div className="flex h-full flex-col overflow-hidden rounded-2xl border border-white/[0.06] bg-[#0c0b0a]">
       <div className="relative aspect-[16/10] overflow-hidden border-b border-white/[0.06]">
-        <Image src={image} alt={title} fill sizes="380px" className="object-cover" />
+        <StaticImage
+          src={image}
+          alt={title}
+          fill
+          className="absolute inset-0 h-full w-full object-cover"
+        />
       </div>
       <div className="flex flex-1 flex-col p-6">
         <h3 className="text-[16px] font-medium text-white">{title}</h3>

@@ -1,5 +1,5 @@
-import Image from "next/image";
 import Reveal from "./Reveal";
+import StaticImage from "./StaticImage";
 import { Eyebrow, SplitHeading } from "./ui";
 
 type Feature = {
@@ -58,19 +58,18 @@ function FeatureRow({ feature, flip }: { feature: Feature; flip: boolean }) {
       >
         {/* Mockup card */}
         <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-white/[0.06]">
-          <Image
+          <StaticImage
             src={feature.painting}
             alt=""
             fill
-            sizes="(max-width: 1024px) 100vw, 560px"
-            className="object-cover"
+            className="absolute inset-0 h-full w-full object-cover"
           />
           <div className="absolute inset-0 flex items-end justify-center px-8 pt-10">
-            <Image
+            <StaticImage
               src={feature.mock}
               alt={feature.title}
               width={1536}
-              height={1536}
+              height={960}
               className="w-[88%] translate-y-2 rounded-t-xl border border-black/40 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.7)]"
             />
           </div>

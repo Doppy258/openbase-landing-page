@@ -1,4 +1,4 @@
-import Image from "next/image";
+import StaticImage from "./StaticImage";
 import { Logo } from "./ui";
 
 const NAV = [
@@ -70,7 +70,7 @@ export default function Footer() {
 
         <div className="mt-12 flex items-center gap-2 text-[13px] text-muted-2">
           <span>Created by</span>
-          <Image
+          <StaticImage
             src="/assets/avatar-arthur.jpg"
             alt="Arthur"
             width={20}
