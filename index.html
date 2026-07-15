@@ -3,11 +3,21 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Openbase Coder — The Voice IDE</title>
+    <title>Openbase — The Voice IDE</title>
     <meta
       name="description"
-      content="Openbase Coder lets you write code from voice with live coding calls, Codex threads, approvals, reports, and diff review."
+      content="Openbase lets you write code from voice with live coding calls, Codex threads, approvals, reports, and diff review."
     />
+    <link rel="icon" href="./assets/openbase-icon.png" />
+    <meta property="og:title" content="Openbase — The Voice IDE" />
+    <meta
+      property="og:description"
+      content="Write code from voice. Speak the task, keep a live coding call open, approve commands, and review the diff from one control surface."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://openbase.cloud/" />
+    <meta property="og:image" content="./assets/openbase-icon.png" />
+    <meta name="twitter:card" content="summary_large_image" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -24,22 +34,22 @@
         <div class="bb-beam bb-beam-2"></div>
       </div>
       <a class="brand" href="#">
-        <img src="./assets/openbase-logo-and-text.svg" alt="Openbase Coder" />
-        <span style="display:none">Openbase Coder</span>
+        <img src="./assets/openbase-logo-and-text.svg" alt="Openbase" />
+        <span style="display:none">Openbase</span>
       </a>
       <div class="links">
         <a href="#engineers">Product</a><a href="#how">Workflow</a><a href="#integrations">Control Surface</a
-        ><a href="https://docs.openbase.cloud">Docs</a>
+        ><a href="https://docs.openbase.cloud" target="_blank" rel="noopener">Docs</a
+        ><a href="https://app.openbase.cloud/account/login">Sign In</a>
       </div>
       <div class="right">
-        <a class="signin" href="https://app.openbase.cloud/account/login">Sign In</a>
-        <button class="cta">
+        <a class="cta" href="./install.html">
           <div class="bb-wrap" aria-hidden="true">
             <div class="bb-beam bb-beam-1"></div>
             <div class="bb-beam bb-beam-2"></div>
           </div>
           Download
-        </button>
+        </a>
         <button class="nav__burger" id="navBurger" aria-label="Menu"><span></span><span></span><span></span></button>
       </div>
     </nav>
@@ -50,7 +60,8 @@
       <a href="#engineers">Product</a>
       <a href="#how">Workflow</a>
       <a href="#integrations">Control Surface</a>
-      <a href="https://docs.openbase.cloud">Docs</a>
+      <a href="https://docs.openbase.cloud" target="_blank" rel="noopener">Docs</a>
+      <a href="./install.html">Download</a>
       <a href="https://app.openbase.cloud/account/login" style="opacity:.7;font-size:20px">Sign In</a>
     </div>
 
@@ -88,7 +99,7 @@
           ><span class="sub-line">and review the diff from one control surface.</span>
         </p>
         <div class="ctas">
-          <button class="btn primary" style="padding: 0px 16px; letter-spacing: -0.9px">
+          <a class="btn primary" href="./install.html#mac" style="padding: 0px 16px; letter-spacing: -0.9px">
             <div class="bb-wrap" aria-hidden="true">
               <div class="bb-beam bb-beam-1"></div>
               <div class="bb-beam bb-beam-2"></div>
@@ -99,14 +110,14 @@
               alt=""
               style="width:18px;height:18px;flex-shrink:0;filter:brightness(0) invert(1)"
             />
-          </button>
-          <button class="btn ghost" style="letter-spacing: -0.9px">
+          </a>
+          <a class="btn ghost" href="./install.html#ios" style="letter-spacing: -0.9px">
             <div class="bb-wrap" aria-hidden="true">
               <div class="bb-beam bb-beam-1"></div>
               <div class="bb-beam bb-beam-2"></div>
             </div>
             Join iOS Beta
-          </button>
+          </a>
         </div>
       </section>
 
@@ -149,7 +160,7 @@
               </div>
               <div class="agency__meta">
                 <div class="k">VOICE IDE</div>
-                <div class="n">Openbase Coder</div>
+                <div class="n">Openbase</div>
               </div>
               <div class="agency__unfold">
                 <img src="./assets/Unfold_More.svg" alt="" style="width:16px;height:16px;object-fit:contain;opacity:.5" />
@@ -340,12 +351,12 @@
                     Voice is not dictation. It is the command interface for a full coding environment that can keep
                     long-running agent work visible.
                   </p>
-                  <button class="meet">
+                  <a class="meet" href="https://docs.openbase.cloud" target="_blank" rel="noopener">
                     View Docs
                     <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6">
                       <path d="M4 10h12 M11 5l5 5-5 5" />
                     </svg>
-                  </button>
+                  </a>
                 </div>
                 <div class="stats">
                   <div class="stat violet">
@@ -542,7 +553,7 @@
                   <img src="./assets/openbase-icon.png" alt="Openbase" style="width:58%;height:auto;object-fit:contain" />
                 </div>
                 <div class="openbase-label" aria-hidden="true">
-                  <div class="n">Openbase Coder</div>
+                  <div class="n">Openbase</div>
                   <div class="k">ONE CONTROL SURFACE</div>
                 </div>
 
@@ -614,39 +625,46 @@
         </div>
       </div>
     </main>
+
+    <footer class="site-footer">
+          <div class="footer-grid" aria-hidden="true"></div>
+          <div class="footer-inner">
+            <div class="footer-top">
+              <h3>Write code from voice.<br /><span class="it">Keep the agent moving.</span></h3>
+              <a class="footer-cta" href="./install.html">
+                Get Openbase
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6">
+                  <path d="M4 10h12 M11 5l5 5-5 5" />
+                </svg>
+              </a>
+            </div>
+            <div class="footer-columns">
+              <div class="footer-col">
+                <h6>Product</h6>
+                <a href="./install.html">Install</a>
+                <a href="https://docs.openbase.cloud" target="_blank" rel="noopener">Docs</a>
+                <a href="https://app.openbase.cloud/account/login">Sign In</a>
+              </div>
+              <div class="footer-col">
+                <h6>Community</h6>
+                <a href="https://discord.gg/nYzsn3Vh6y" target="_blank" rel="noopener">Discord</a>
+                <a href="https://luma.com/mindful-makers?period=past" target="_blank" rel="noopener">Luma</a>
+                <a href="https://github.com/openbase-community/openbase-coder" target="_blank" rel="noopener">Open Source CLI</a>
+              </div>
+              <div class="footer-col">
+                <h6>Legal</h6>
+                <a href="./terms.html">Terms of Service</a>
+                <a href="./privacy.html">Privacy Policy</a>
+                <a href="mailto:team@openbase.cloud">Contact</a>
+              </div>
+            </div>
+            <div class="footer-bottom">
+              <span>&copy; <span data-year>2026</span> Openbase. All rights reserved.</span>
+              <img src="./assets/openbase-logo-and-text.svg" alt="Openbase" class="footer-mark" />
+            </div>
+          </div>
+    </footer>
+
     <script type="module" src="./script.js"></script>
-    <script>
-      (function () {
-        function goto(hash) {
-          try {
-            (window.top || window).location.href = hash;
-          } catch (e) {
-            window.location.href = hash;
-          }
-        }
-        function wire(selector, hash) {
-          document.querySelectorAll(selector).forEach(function (el) {
-            el.style.cursor = "pointer";
-            el.addEventListener("click", function (e) {
-              e.preventDefault();
-              e.stopPropagation();
-              goto(hash);
-            });
-          });
-        }
-        function init() {
-          wire(".cta", "https://openbase-coder-desktop-releases-632795836081-us-east-1.s3.amazonaws.com/mac/Openbase-Coder-latest-arm64.dmg");
-          wire(".btn.primary", "https://openbase-coder-desktop-releases-632795836081-us-east-1.s3.amazonaws.com/mac/Openbase-Coder-latest-arm64.dmg");
-          wire(".btn.ghost", "https://testflight.apple.com/join/DVTh9CMH");
-          wire(".signin", "https://app.openbase.cloud/account/login");
-          wire(".meet", "https://docs.openbase.cloud");
-        }
-        if (document.readyState === "loading") {
-          document.addEventListener("DOMContentLoaded", init);
-        } else {
-          init();
-        }
-      })();
-    </script>
   </body>
 </html>

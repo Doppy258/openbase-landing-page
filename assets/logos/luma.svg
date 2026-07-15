@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Luma">
+  <defs>
+    <linearGradient id="luma-a" x1="8" y1="8" x2="55" y2="56" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#15111f"/>
+      <stop offset=".22" stop-color="#7c3aed"/>
+      <stop offset=".43" stop-color="#22d3ee"/>
+      <stop offset=".62" stop-color="#fef08a"/>
+      <stop offset=".8" stop-color="#f43f5e"/>
+      <stop offset="1" stop-color="#09090b"/>
+    </linearGradient>
+    <linearGradient id="luma-b" x1="52" y1="10" x2="13" y2="55" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fff" stop-opacity=".9"/>
+      <stop offset=".3" stop-color="#a5f3fc" stop-opacity=".25"/>
+      <stop offset=".7" stop-color="#c026d3" stop-opacity=".35"/>
+      <stop offset="1" stop-color="#000" stop-opacity=".75"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="#fff"/>
+  <path d="M32 5c2.4 16.8 10.2 24.6 27 27-16.8 2.4-24.6 10.2-27 27-2.4-16.8-10.2-24.6-27-27 16.8-2.4 24.6-10.2 27-27Z" fill="url(#luma-a)"/>
+  <path d="M32 10c1.7 13.6 8.4 20.3 22 22-13.6 1.7-20.3 8.4-22 22-1.7-13.6-8.4-20.3-22-22 13.6-1.7 20.3-8.4 22-22Z" fill="url(#luma-b)"/>
+  <path d="M32 8c1.9 15 9 22.1 24 24-15 1.9-22.1 9-24 24-1.9-15-9-22.1-24-24 15-1.9 22.1-9 24-24Z" fill="none" stroke="#111827" stroke-opacity=".5" stroke-width="1.2"/>
+</svg>

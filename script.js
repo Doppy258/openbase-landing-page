@@ -18,6 +18,34 @@
           drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => drawer.classList.remove('open')));
         }
 
+
+        // In-page nav: intercept hash links inside the nav + drawer and route them
+        // through the fullpage engine (window.__fp). Scoped to nav/drawer so the
+        // decorative href="#" links inside the hero browser mock are left alone.
+        [nav, drawer].forEach((container) => {
+          if (!container) return;
+          container.addEventListener('click', (e) => {
+            const a = e.target.closest('a[href^="#"]');
+            if (!a || !container.contains(a)) return;
+            const anchor = a.getAttribute('href').slice(1);
+            if (!anchor) { // brand: href="#" -> back to hero
+              e.preventDefault();
+              if (window.__fp) window.__fp.goTo(0);
+              return;
+            }
+            if (window.__fp && document.querySelector('[data-anchor="' + anchor + '"]')) {
+              e.preventDefault();
+              if (anchor === 'hero') window.__fp.goTo(0);
+              else window.__fp.goToAnchor(anchor);
+            }
+          });
+        });
+
+        // Footer year (no build step, so stamp it at runtime).
+        document.querySelectorAll('[data-year]').forEach((el) => {
+          el.textContent = new Date().getFullYear();
+        });
+
         function groupChWords(root){
           // wrap runs of letter spans in nowrap word containers so lines
           // never break mid-word on narrow viewports
@@ -244,9 +272,9 @@
             if (handle) handle.style.opacity = 1;
           }
         }
-        function setNavForSection(idx){
-
-          if (idx === 0){
+        function setNavForSection(idx, footerVisible = false){
+          const isDarkSection = idx === 0 || footerVisible;
+          if (isDarkSection){
             nav.classList.add('glass');
             nav.classList.remove('dark');
           } else {
@@ -445,8 +473,10 @@
             const onScroll = () => {
               const vh = window.innerHeight;
               const past = window.scrollY > vh * 0.7;
-              nav.classList.toggle('dark', past);
-              nav.classList.toggle('glass', !past);
+              const footer = document.querySelector('.site-footer');
+              const footerVisible = footer && footer.getBoundingClientRect().top < vh * 0.55;
+              nav.classList.toggle('dark', past && !footerVisible);
+              nav.classList.toggle('glass', !past || footerVisible);
               watched.forEach((s) => {
                 if (!s.el || s.done) return;
                 const r = s.el.getBoundingClientRect();
@@ -459,15 +489,27 @@
             window.addEventListener('scroll', onScroll, { passive: true });
             window.addEventListener('resize', onScroll, { passive: true });
             onScroll();
+
+            // Natural-scroll nav API for mobile.
+            window.__fp = {
+              enabled: true,
+              goTo(){ window.scrollTo({ top: 0, behavior: 'smooth' }); },
+              goToAnchor(a){
+                const el = document.querySelector('[data-anchor="' + a + '"]');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              }
+            };
+            const mHash = location.hash.replace('#', '');
+            if (mHash){
+              const el = document.querySelector('[data-anchor="' + mHash + '"]');
+              if (el) requestAnimationFrame(() => el.scrollIntoView());
+            }
             return;
           }
 
           document.documentElement.classList.add('fp-enabled');
-
-
           wrap.style.position = 'fixed';
-          wrap.style.top = '0';
-          wrap.style.left = '0';
+          wrap.style.inset = '0 auto auto 0';
           wrap.style.width = '100%';
           wrap.style.zIndex = '1';
           wrap.style.transition = 'transform 1000ms cubic-bezier(.77,0,.18,1)';
@@ -475,49 +517,111 @@
 
           let current = 0;
           let animating = false;
+          let released = false;
+          let enteredFooter = false;
+          const lastIdx = sections.length - 1;
+          const footer = document.querySelector('.site-footer');
+          const TRANSITION = 'transform 1000ms cubic-bezier(.77,0,.18,1)';
+
+          function releaseFooter(advance = 0){
+            if (released) return;
+            released = true;
+            enteredFooter = false;
+            // Fixed -> absolute is visually identical at scrollY 0, but now the last
+            // card belongs to the document and scrolls upward with the footer beneath it.
+            wrap.style.position = 'absolute';
+            document.documentElement.classList.remove('fp-enabled');
+            if (window.__fp) window.__fp.enabled = false;
+            if (advance > 0){
+              requestAnimationFrame(() => {
+                window.scrollBy({
+                  top: Math.min(advance, footer ? footer.offsetHeight : advance),
+                  behavior: 'smooth'
+                });
+              });
+            }
+          }
+
+          function rearmSections(){
+            if (!released) return;
+            released = false;
+            wrap.style.position = 'fixed';
+            document.documentElement.classList.add('fp-enabled');
+            window.scrollTo(0, 0);
+            if (window.__fp) window.__fp.enabled = true;
+            setNavForSection(current);
+          }
 
           function goTo(idx){
-            idx = Math.max(0, Math.min(sections.length - 1, idx));
+            if (released) rearmSections();
+            idx = Math.max(0, Math.min(lastIdx, idx));
             if (idx === current || animating) return;
-            const prev = current;
             current = idx;
             animating = true;
             wrap.style.transform = `translateY(-${idx * 100}vh)`;
             setNavForSection(idx);
             setCurtain(idx !== 0);
-            if (idx === 1) triggerS2();
-            if (idx === 2) triggerS3();
-            if (idx === 3) triggerS4();
+            if (idx >= 1) triggerS2();
+            if (idx >= 2) triggerS3();
+            if (idx >= 3) triggerS4();
             setTimeout(() => { animating = false; }, 1050);
           }
 
+          window.__fp = {
+            enabled: true,
+            goTo(idx){ goTo(idx); },
+            goToAnchor(a){
+              const i = sections.findIndex(s => s.dataset.anchor === a);
+              if (i >= 0) goTo(i);
+            }
+          };
+
+          window.addEventListener('scroll', () => {
+            if (!released) return;
+            const footerVisible = footer && footer.getBoundingClientRect().top < window.innerHeight * 0.55;
+            setNavForSection(current, footerVisible);
+            if (window.scrollY > 10) enteredFooter = true;
+            if (enteredFooter && window.scrollY <= 1) rearmSections();
+          }, { passive: true });
 
           let wheelLock = false;
           window.addEventListener('wheel', (e) => {
+            if (released){
+              if (window.scrollY <= 1 && e.deltaY < -8){
+                e.preventDefault();
+                rearmSections();
+                goTo(lastIdx - 1);
+              }
+              return;
+            }
+            if (current === lastIdx && e.deltaY > 8 && !animating && !wheelLock){
+              releaseFooter(Math.max(180, Math.abs(e.deltaY)));
+              return;
+            }
             e.preventDefault();
-            if (wheelLock || animating) return;
-            const dir = e.deltaY > 0 ? 1 : -1;
-            if (Math.abs(e.deltaY) < 8) return;
+            if (wheelLock || animating || Math.abs(e.deltaY) < 8) return;
             wheelLock = true;
-            goTo(current + dir);
+            goTo(current + (e.deltaY > 0 ? 1 : -1));
             setTimeout(() => { wheelLock = false; }, 1100);
           }, { passive: false });
 
-
           window.addEventListener('keydown', (e) => {
-            if (['ArrowDown','PageDown',' '].includes(e.key)) { e.preventDefault(); goTo(current + 1); }
-            else if (['ArrowUp','PageUp'].includes(e.key))   { e.preventDefault(); goTo(current - 1); }
+            if (released) return;
+            if (['ArrowDown','PageDown',' '].includes(e.key)) {
+              if (current === lastIdx){ releaseFooter(window.innerHeight * 0.45); return; }
+              e.preventDefault(); goTo(current + 1);
+            }
+            else if (['ArrowUp','PageUp'].includes(e.key)) { e.preventDefault(); goTo(current - 1); }
             else if (e.key === 'Home') { e.preventDefault(); goTo(0); }
-            else if (e.key === 'End')  { e.preventDefault(); goTo(sections.length - 1); }
           });
-
 
           let touchY = null;
           window.addEventListener('touchstart', (e) => { touchY = e.touches[0].clientY; }, { passive: true });
           window.addEventListener('touchmove', (e) => {
-            if (touchY == null || animating) return;
+            if (released || touchY == null || animating) return;
             const dy = touchY - e.touches[0].clientY;
             if (Math.abs(dy) > 40){
+              if (current === lastIdx && dy > 0){ releaseFooter(Math.max(180, dy)); touchY = null; return; }
               goTo(current + (dy > 0 ? 1 : -1));
               touchY = null;
             }
@@ -525,6 +629,23 @@
 
           setNavForSection(0);
           setCurtain(false);
+
+          const hash = location.hash.replace('#', '');
+          if (hash){
+            const i = sections.findIndex(s => s.dataset.anchor === hash);
+            if (i > 0){
+              wrap.style.transition = 'none';
+              current = i;
+              wrap.style.transform = `translateY(-${i * 100}vh)`;
+              setNavForSection(i);
+              setCurtain(true);
+              if (i >= 1) triggerS2();
+              if (i >= 2) triggerS3();
+              if (i >= 3) triggerS4();
+              void wrap.offsetHeight;
+              wrap.style.transition = TRANSITION;
+            }
+          }
         }
 
         if (document.readyState === 'loading'){
@@ -827,7 +948,7 @@
 
 
           const linksEnd = 330 + links.length * 55;
-          setTimeout(() => signin.classList.add('intro-signin-in'), linksEnd + 60);
+          if (signin) setTimeout(() => signin.classList.add('intro-signin-in'), linksEnd + 60);
 
 
           setTimeout(() => {
