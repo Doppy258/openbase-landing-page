@@ -38,9 +38,9 @@
         <span style="display:none">Openbase</span>
       </a>
       <div class="links">
-        <a href="#engineers">Product</a><a href="#how">Workflow</a><a href="#integrations">Control Surface</a
-        ><a href="https://docs.openbase.cloud" target="_blank" rel="noopener">Docs</a
-        ><a href="https://app.openbase.cloud/account/login">Sign In</a>
+        <a href="https://docs.openbase.cloud" target="_blank" rel="noopener">Docs</a>
+        <a href="https://discord.gg/nYzsn3Vh6y" target="_blank" rel="noopener">Discord</a>
+        <a href="https://app.openbase.cloud/account/login">Sign In</a>
       </div>
       <div class="right">
         <a class="cta" href="./install.html">
@@ -57,17 +57,14 @@
 
     <div class="nav__drawer" id="navDrawer">
       <button class="drawer-close" id="drawerClose">✕</button>
-      <a href="#engineers">Product</a>
-      <a href="#how">Workflow</a>
-      <a href="#integrations">Control Surface</a>
       <a href="https://docs.openbase.cloud" target="_blank" rel="noopener">Docs</a>
+      <a href="https://discord.gg/nYzsn3Vh6y" target="_blank" rel="noopener">Discord</a>
+      <a href="https://app.openbase.cloud/account/login">Sign In</a>
       <a href="./install.html">Download</a>
-      <a href="https://app.openbase.cloud/account/login" style="opacity:.7;font-size:20px">Sign In</a>
     </div>
 
 
-    <div class="curtain-spacer" aria-hidden="true"></div>
-    <div class="curtain" id="curtain" data-screen-label="01 Hero">
+    <div class="curtain" id="curtain" data-anchor="hero" data-screen-label="01 Hero">
       <div class="curtain__bg" aria-hidden="true"></div>
       <div class="curtain__hero-logo" id="introCenterLogo" aria-hidden="true">
         <img src="./assets/openbase-logo-and-text.svg" alt="" />
@@ -79,6 +76,7 @@
       <div class="curtain__tint" aria-hidden="true"></div>
 
       <section class="hero">
+        <div class="hero__copy">
         <div class="pill">
           <div class="bb-wrap" aria-hidden="true">
             <div class="bb-beam bb-beam-1"></div>
@@ -86,14 +84,7 @@
           </div>
           <span class="new">LIVE</span><span class="label">The voice IDE for real engineering work</span>
         </div>
-        <h1 style="line-height: 1.06; padding: 0px; font-size: 60px; text-align: center">
-          <span class="line line1" style="margin: 0px">Write Code From Voice.</span
-          ><span
-            class="line line2"
-            style="font-weight: 400; line-height: 1; letter-spacing: -1.2px; margin: 0px; width: 700px"
-            >Keep The Agent&nbsp;<span class="it">Moving.</span></span
-          >
-        </h1>
+        <h1><span class="line line1">Write Code From Voice.</span><span class="line line2">Keep The Agent&nbsp;<span class="it">Moving.</span></span></h1>
         <p class="sub">
           <span class="sub-line">Speak the task, keep a live coding call open, approve commands,</span
           ><span class="sub-line">and review the diff from one control surface.</span>
@@ -119,191 +110,114 @@
             Join iOS Beta
           </a>
         </div>
+        </div>
       </section>
 
 
-      <div class="browser" aria-hidden="true" style="margin: 0px; font-weight: 400; width: 1224px">
-        <div class="bb-wrap" aria-hidden="true">
-          <div class="bb-beam bb-beam-1"></div>
-          <div class="bb-beam bb-beam-2"></div>
-        </div>
-        <div class="browser__chrome">
-          <div class="browser__nav">
-            <img src="./assets/Navegation.svg" alt="" style="height:14px;width:auto;opacity:.85" />
-          </div>
-          <div class="browser__url">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="12"
-              height="12"
-              viewBox="0 0 12 12"
-              fill="none"
-              style="position:absolute;left:8px;top:50%;transform:translateY(-50%);width:10.994px;height:10.994px;flex-shrink:0"
-            >
-              <rect x="0.5" y="0.5" width="10.9941" height="10.9941" rx="5.49707" stroke="white" />
-              <path d="M3.39221 5.92828L8.60089 5.92828" stroke="white" stroke-linecap="round" />
-              <path d="M5.99689 3.39343L5.99689 8.60211" stroke="white" stroke-linecap="round" /></svg
-            ><img src="./assets/Candado.svg" alt="" style="height:10px;width:auto;opacity:.85" /> openbase.cloud / voice-ide
-          </div>
-          <div class="browser__icons">
-            <img src="./assets/Options.svg" alt="" style="height:16px;width:auto;opacity:.85" />
-          </div>
-        </div>
-        <div class="dashboard">
-          <aside class="sidebar" style="border-width: 0px 1px 0px 0px; padding: 16px; margin: 0px">
-            <div class="agency">
-              <div
-                class="agency__logo"
-                style="display:flex;width:32px;height:32px;padding:0;align-items:center;justify-content:center;border-radius:8px;background:rgba(14,10,7,.10);border:1px solid rgba(14,10,7,.12);overflow:hidden"
-              >
-                <img src="./assets/openbase-icon.png" alt="Openbase" style="width:100%;height:100%;object-fit:contain" />
+      <div
+        class="device-stage"
+        role="img"
+        aria-label="Openbase on iPhone listening to a coding request and presenting a Mac task for approval"
+      >
+        <div class="device-aura" aria-hidden="true"></div>
+
+        <div class="iphone" aria-hidden="true">
+          <div class="iphone-side iphone-side--mute"></div>
+          <div class="iphone-side iphone-side--volume-up"></div>
+          <div class="iphone-side iphone-side--volume-down"></div>
+          <div class="iphone-side iphone-side--power"></div>
+          <div class="iphone-frame">
+            <div class="iphone-screen">
+              <div class="ios-status">
+                <span>9:41</span>
+                <div class="dynamic-island"><i></i></div>
+                <div class="ios-signals">
+                  <svg viewBox="0 0 18 12" fill="none"><path d="M1 10h2V8H1v2Zm4 0h2V6H5v4Zm4 0h2V3H9v7Zm4 0h2V1h-2v9Z" fill="currentColor"/></svg>
+                  <svg viewBox="0 0 18 12" fill="none"><path d="M2 4.7a10.5 10.5 0 0 1 14 0M4.7 7.2a6.4 6.4 0 0 1 8.6 0M7.5 9.6a2.5 2.5 0 0 1 3 0" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+                  <span class="ios-battery"><i></i></span>
+                </div>
               </div>
-              <div class="agency__meta">
-                <div class="k">VOICE IDE</div>
-                <div class="n">Openbase</div>
+
+              <div class="ios-navbar">
+                <div class="ios-app-id">
+                  <img src="./assets/openbase-icon.png" alt="" />
+                  <div><span>OPENBASE</span><strong>Voice</strong></div>
+                </div>
+                <span class="ios-live-status"><i></i> Live</span>
               </div>
-              <div class="agency__unfold">
-                <img src="./assets/Unfold_More.svg" alt="" style="width:16px;height:16px;object-fit:contain;opacity:.5" />
-              </div>
-            </div>
-            <h6>MAIN MENU</h6>
-            <div class="menu">
-              <a class="active" href="#"
-                ><img
-                  src="./assets/material-symbols-light_home-rounded.svg"
-                  alt=""
-                  style="width:14px;height:14px;display:inline-block;vertical-align:middle"
-                />
-                Call</a
-              >
-              <a href="#"
-                ><img
-                  src="./assets/material-symbols-light_home-rounded_1.svg"
-                  alt=""
-                  style="width:14px;height:14px;display:inline-block;vertical-align:middle"
-                />
-                Dispatch</a
-              >
-              <a href="#"
-                ><img
-                  src="./assets/material-symbols-light_home-rounded_1.svg"
-                  alt=""
-                  style="width:14px;height:14px;display:inline-block;vertical-align:middle"
-                />
-                Threads</a
-              >
-              <a href="#"
-                ><img
-                  src="./assets/material-symbols-light_home-rounded_1.svg"
-                  alt=""
-                  style="width:14px;height:14px;display:inline-block;vertical-align:middle"
-                />
-                Approvals</a
-              >
-            </div>
-          </aside>
-          <div class="main">
-            <div class="breadcrumbs" style="gap: 6px">
-              <span>Workspace</span> <span>›</span> <strong>Voice call</strong>
-            </div>
-            <div class="welcome">Cartesia voice connected</div>
-            <div class="kpis">
-              <div class="kpi">
-                <div class="inner">
-                  <div>
-                    <div class="label">CALL</div>
-                    <div class="val" style="margin-top:12px">LIVE</div>
-                    <div class="desc">Gabe's MacBook Pro</div>
+
+              <div class="ios-content">
+                <div class="mac-connection">
+                  <span class="mac-connection-icon">
+                    <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="4.5" width="18" height="12" rx="2"/><path d="M8 20h8M10 16.5 9 20m5-3.5 1 3.5"/></svg>
+                  </span>
+                  <span><strong>Mac connected</strong><small>openbase / app</small></span>
+                  <i></i>
+                </div>
+
+                <div class="voice-session">
+                  <div class="voice-blob">
+                    <div class="voice-blob-glow"></div>
+                    <div class="voice-blob-core"></div>
                   </div>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="44" height="49" viewBox="0 0 44 49" fill="none">
-                    <path d="M1 33L1 49" stroke="#0E0A07" stroke-opacity="0.2" stroke-width="2" />
-                    <path d="M8 0L8 49" stroke="#0E0A07" stroke-width="2" />
-                    <path d="M15 20L15 49" stroke="#0E0A07" stroke-opacity="0.2" stroke-width="2" />
-                    <path d="M22 12L22 49" stroke="#0E0A07" stroke-opacity="0.2" stroke-width="2" />
-                    <path d="M29 30L29 49" stroke="#0E0A07" stroke-opacity="0.2" stroke-width="2" />
-                    <path d="M36 20L36 49" stroke="#0E0A07" stroke-opacity="0.2" stroke-width="2" />
-                    <path d="M43 16L43 49" stroke="#0E0A07" stroke-opacity="0.2" stroke-width="2" />
-                  </svg>
+                  <h3 data-demo-voice-title>Listening</h3>
+                  <p data-demo-voice-copy>Speak naturally. Openbase is listening.</p>
                 </div>
-                <div class="foot">
-                  <svg
-                    class="qmark"
-                    viewBox="0 0 14 14"
-                    fill="none"
-                    stroke="rgba(14,10,7,.35)"
-                    stroke-width="1.2"
-                    width="14"
-                    height="14"
-                  >
-                    <circle cx="7" cy="7" r="6" />
-                    <path d="M7 9.5V10m0-5.5a1.5 1.5 0 0 1 0 3" stroke-linecap="round" /></svg
-                  ><span class="mom"><span class="val">Room</span> <span class="lbl">Connected</span></span>
-                </div>
-              </div>
-              <div class="kpi">
-                <div class="inner">
-                  <div>
-                    <div class="label">THREAD</div>
-                    <div class="val" style="margin-top:12px">04</div>
-                    <div class="desc">Codex tasks running</div>
+
+                <div class="ios-command-card">
+                  <div class="command-card-head">
+                    <span><i></i> LIVE TRANSCRIPT</span>
+                    <time>08:42</time>
                   </div>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="44" height="49" viewBox="0 0 44 49" fill="none">
-                    <path d="M1 33L1 49" stroke="#0E0A07" stroke-opacity="0.2" stroke-width="2" />
-                    <path d="M8 5L8 49" stroke="#0E0A07" stroke-width="2" />
-                    <path d="M15 20L15 49" stroke="#0E0A07" stroke-opacity="0.2" stroke-width="2" />
-                    <path d="M22 35L22 49" stroke="#0E0A07" stroke-opacity="0.2" stroke-width="2" />
-                    <path d="M29 30L29 49" stroke="#0E0A07" stroke-opacity="0.2" stroke-width="2" />
-                    <path d="M36 20L36 49" stroke="#0E0A07" stroke-opacity="0.2" stroke-width="2" />
-                    <path d="M43 9L43 49" stroke="#0E0A07" stroke-opacity="0.2" stroke-width="2" />
-                  </svg>
+                  <p><span data-demo-command>“Fix the authentication bug and run the tests.”</span><i class="typing-caret"></i></p>
                 </div>
-                <div class="foot">
-                  <svg
-                    class="qmark"
-                    viewBox="0 0 14 14"
-                    fill="none"
-                    stroke="rgba(14,10,7,.35)"
-                    stroke-width="1.2"
-                    width="14"
-                    height="14"
-                  >
-                    <circle cx="7" cy="7" r="6" />
-                    <path d="M7 9.5V10m0-5.5a1.5 1.5 0 0 1 0 3" stroke-linecap="round" /></svg
-                  ><span class="mom"><span class="val">2</span> <span class="lbl">waiting approval</span></span>
-                </div>
-              </div>
-              <div class="kpi">
-                <div class="inner">
-                  <div>
-                    <div class="label">DIFF</div>
-                    <div class="val" style="margin-top:12px">READY</div>
-                    <div class="desc">Review before ship</div>
+
+                <div class="ios-assistant-message">
+                  <span class="assistant-avatar"><img src="./assets/openbase-icon.png" alt="" /></span>
+                  <div class="assistant-copy">
+                    <div><strong>Openbase</strong><time>just now</time></div>
+                    <p><b>Done!</b> I fixed a race in the session refresh flow that returned before the new token reached the cache. The handler now waits for the write to finish, and all 24 authentication tests pass.</p>
                   </div>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="44" height="49" viewBox="0 0 44 49" fill="none">
-                    <path d="M1 33L1 49" stroke="#0E0A07" stroke-opacity="0.2" stroke-width="2" />
-                    <path d="M8 3L8 49" stroke="#0E0A07" stroke-width="2" />
-                    <path d="M15 38L15 49" stroke="#0E0A07" stroke-opacity="0.2" stroke-width="2" />
-                    <path d="M22 12L22 49" stroke="#0E0A07" stroke-opacity="0.2" stroke-width="2" />
-                    <path d="M29 21L29 49" stroke="#0E0A07" stroke-opacity="0.2" stroke-width="2" />
-                    <path d="M36 8L36 49" stroke="#0E0A07" stroke-opacity="0.2" stroke-width="2" />
-                    <path d="M43 9L43 49" stroke="#0E0A07" stroke-opacity="0.2" stroke-width="2" />
-                  </svg>
                 </div>
-                <div class="foot">
-                  <svg
-                    class="qmark"
-                    viewBox="0 0 14 14"
-                    fill="none"
-                    stroke="rgba(14,10,7,.35)"
-                    stroke-width="1.2"
-                    width="14"
-                    height="14"
-                  >
-                    <circle cx="7" cy="7" r="6" />
-                    <path d="M7 9.5V10m0-5.5a1.5 1.5 0 0 1 0 3" stroke-linecap="round" /></svg
-                  ><span class="mom"><span class="val">+18</span> <span class="lbl">files changed</span></span>
+
+                <div class="ios-demo-bottom">
+                  <div class="ios-approval-sheet">
+                    <div class="approval-request-view">
+                      <div class="approval-copy">
+                        <span>APPROVAL NEEDED</span>
+                        <strong>Run authentication tests?</strong>
+                      </div>
+                      <code>npm test -- auth</code>
+                      <div class="approval-actions">
+                        <span class="approval-review">Review</span>
+                        <span class="approval-primary"><i></i><b>Approve</b></span>
+                      </div>
+                    </div>
+
+                    <div class="approval-running-view">
+                      <div class="running-head">
+                        <span class="running-spinner"></span>
+                        <div><span>APPROVED</span><strong>Running authentication tests</strong></div>
+                        <small>24 tests</small>
+                      </div>
+                      <div class="running-progress"><i></i></div>
+                      <div class="running-meta"><code>npm test -- auth</code><span>Working on Mac</span></div>
+                    </div>
+                  </div>
+
+                  <div class="ios-tests-passed">
+                    <div class="tests-passed-head">
+                      <span class="tests-passed-check">
+                        <svg viewBox="0 0 20 20" fill="none"><path d="m5 10.2 3.2 3.1L15 6.7"/></svg>
+                      </span>
+                      <div><span>TESTS PASSED</span><strong>Authentication suite complete</strong></div>
+                      <small>24 / 24</small>
+                    </div>
+                    <div class="tests-passed-meta"><code>npm test -- auth</code><span>0 failures · 3.8s</span></div>
+                  </div>
                 </div>
               </div>
+              <div class="ios-home-indicator"></div>
             </div>
           </div>
         </div>
@@ -314,10 +228,7 @@
 
 
     <main class="below">
-      <div id="fullpage">
-
-        <div class="section fp-curtain" data-anchor="hero"></div>
-
+      <div id="sections">
 
         <div class="section" data-anchor="engineers">
           <section class="sect s2" data-screen-label="02 Engineers">

@@ -1,7 +1,6 @@
 (function(){
         const curtain = document.getElementById('curtain');
         const nav = document.getElementById('nav');
-        const handle = document.querySelector('.curtain__handle');
         const revealTarget = document.querySelector('.s2 .reveal');
         const s2El = document.querySelector('.s2');
         const s3El = document.querySelector('.s3');
@@ -19,24 +18,24 @@
         }
 
 
-        // In-page nav: intercept hash links inside the nav + drawer and route them
-        // through the fullpage engine (window.__fp). Scoped to nav/drawer so the
-        // decorative href="#" links inside the hero browser mock are left alone.
+        // In-page nav uses the browser's native document scroll. Scoped to the
+        // nav and drawer so decorative links elsewhere are left alone.
         [nav, drawer].forEach((container) => {
           if (!container) return;
           container.addEventListener('click', (e) => {
             const a = e.target.closest('a[href^="#"]');
             if (!a || !container.contains(a)) return;
             const anchor = a.getAttribute('href').slice(1);
+            const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
             if (!anchor) { // brand: href="#" -> back to hero
               e.preventDefault();
-              if (window.__fp) window.__fp.goTo(0);
+              window.scrollTo({ top: 0, behavior });
               return;
             }
-            if (window.__fp && document.querySelector('[data-anchor="' + anchor + '"]')) {
+            const target = document.querySelector('[data-anchor="' + anchor + '"]');
+            if (target) {
               e.preventDefault();
-              if (anchor === 'hero') window.__fp.goTo(0);
-              else window.__fp.goToAnchor(anchor);
+              target.scrollIntoView({ behavior });
             }
           });
         });
@@ -255,35 +254,6 @@
         }
 
 
-        const CURTAIN_EASE = 'cubic-bezier(.7,0,.2,1)';
-        const CURTAIN_DUR  = '1100ms';
-        curtain.style.transition = `transform ${CURTAIN_DUR} ${CURTAIN_EASE}, box-shadow ${CURTAIN_DUR} ${CURTAIN_EASE}`;
-        curtain.style.transform  = 'translateY(0)';
-
-        function setCurtain(open){
-
-          if (open){
-            curtain.style.transform = `translateY(100vh)`;
-            curtain.style.boxShadow = `0 54px 114px rgba(8,23,79,.60)`;
-            if (handle) handle.style.opacity = 0;
-          } else {
-            curtain.style.transform = `translateY(0)`;
-            curtain.style.boxShadow = `0 24px 60px rgba(8,23,79,.35)`;
-            if (handle) handle.style.opacity = 1;
-          }
-        }
-        function setNavForSection(idx, footerVisible = false){
-          const isDarkSection = idx === 0 || footerVisible;
-          if (isDarkSection){
-            nav.classList.add('glass');
-            nav.classList.remove('dark');
-          } else {
-            nav.classList.remove('glass');
-            nav.classList.add('dark');
-          }
-        }
-
-
         let s4Triggered = false;
         function triggerS4(){
           if (s4Triggered) return;
@@ -455,203 +425,76 @@
         }
 
 
-        function initFullpage(){
-          const wrap = document.getElementById('fullpage');
+        function initScrollExperience(){
+          const wrap = document.getElementById('sections');
           if (!wrap) return;
-          const sections = [...wrap.querySelectorAll(':scope > .section')];
-          if (!sections.length) return;
 
-          const mqMobile = window.matchMedia('(max-width: 900px)');
-          mqMobile.addEventListener('change', () => location.reload());
-          if (mqMobile.matches){
-            // natural scroll: trigger section animations as they enter the viewport
-            const watched = [
-              { el: document.querySelector('.s2'), fn: triggerS2 },
-              { el: document.querySelector('.s3'), fn: triggerS3 },
-              { el: document.querySelector('.s4'), fn: triggerS4 }
-            ];
-            const onScroll = () => {
-              const vh = window.innerHeight;
-              const past = window.scrollY > vh * 0.7;
-              const footer = document.querySelector('.site-footer');
-              const footerVisible = footer && footer.getBoundingClientRect().top < vh * 0.55;
-              nav.classList.toggle('dark', past && !footerVisible);
-              nav.classList.toggle('glass', !past || footerVisible);
-              watched.forEach((s) => {
-                if (!s.el || s.done) return;
-                const r = s.el.getBoundingClientRect();
-                if (r.top < vh * 0.7 && r.bottom > vh * 0.3){
-                  s.done = true;
-                  s.fn();
-                }
-              });
-            };
-            window.addEventListener('scroll', onScroll, { passive: true });
-            window.addEventListener('resize', onScroll, { passive: true });
-            onScroll();
-
-            // Natural-scroll nav API for mobile.
-            window.__fp = {
-              enabled: true,
-              goTo(){ window.scrollTo({ top: 0, behavior: 'smooth' }); },
-              goToAnchor(a){
-                const el = document.querySelector('[data-anchor="' + a + '"]');
-                if (el) el.scrollIntoView({ behavior: 'smooth' });
-              }
-            };
-            const mHash = location.hash.replace('#', '');
-            if (mHash){
-              const el = document.querySelector('[data-anchor="' + mHash + '"]');
-              if (el) requestAnimationFrame(() => el.scrollIntoView());
-            }
-            return;
-          }
-
-          document.documentElement.classList.add('fp-enabled');
-          wrap.style.position = 'fixed';
-          wrap.style.inset = '0 auto auto 0';
-          wrap.style.width = '100%';
-          wrap.style.zIndex = '1';
-          wrap.style.transition = 'transform 1000ms cubic-bezier(.77,0,.18,1)';
-          wrap.style.willChange = 'transform';
-
-          let current = 0;
-          let animating = false;
-          let released = false;
-          let enteredFooter = false;
-          const lastIdx = sections.length - 1;
+          const watched = [
+            { el: document.querySelector('.s2'), fn: triggerS2 },
+            { el: document.querySelector('.s3'), fn: triggerS3 },
+            { el: document.querySelector('.s4'), fn: triggerS4 }
+          ].filter((item) => item.el);
           const footer = document.querySelector('.site-footer');
-          const TRANSITION = 'transform 1000ms cubic-bezier(.77,0,.18,1)';
-
-          function releaseFooter(advance = 0){
-            if (released) return;
-            released = true;
-            enteredFooter = false;
-            // Fixed -> absolute is visually identical at scrollY 0, but now the last
-            // card belongs to the document and scrolls upward with the footer beneath it.
-            wrap.style.position = 'absolute';
-            document.documentElement.classList.remove('fp-enabled');
-            if (window.__fp) window.__fp.enabled = false;
-            if (advance > 0){
-              requestAnimationFrame(() => {
-                window.scrollBy({
-                  top: Math.min(advance, footer ? footer.offsetHeight : advance),
-                  behavior: 'smooth'
-                });
-              });
-            }
-          }
-
-          function rearmSections(){
-            if (!released) return;
-            released = false;
-            wrap.style.position = 'fixed';
-            document.documentElement.classList.add('fp-enabled');
-            window.scrollTo(0, 0);
-            if (window.__fp) window.__fp.enabled = true;
-            setNavForSection(current);
-          }
-
-          function goTo(idx){
-            if (released) rearmSections();
-            idx = Math.max(0, Math.min(lastIdx, idx));
-            if (idx === current || animating) return;
-            current = idx;
-            animating = true;
-            wrap.style.transform = `translateY(-${idx * 100}vh)`;
-            setNavForSection(idx);
-            setCurtain(idx !== 0);
-            if (idx >= 1) triggerS2();
-            if (idx >= 2) triggerS3();
-            if (idx >= 3) triggerS4();
-            setTimeout(() => { animating = false; }, 1050);
-          }
-
-          window.__fp = {
-            enabled: true,
-            goTo(idx){ goTo(idx); },
-            goToAnchor(a){
-              const i = sections.findIndex(s => s.dataset.anchor === a);
-              if (i >= 0) goTo(i);
-            }
-          };
-
-          window.addEventListener('scroll', () => {
-            if (!released) return;
+          function updateNavTheme(){
+            const navBottom = nav ? nav.getBoundingClientRect().bottom : 96;
+            const heroVisible = curtain && curtain.getBoundingClientRect().bottom > navBottom;
             const footerVisible = footer && footer.getBoundingClientRect().top < window.innerHeight * 0.55;
-            setNavForSection(current, footerVisible);
-            if (window.scrollY > 10) enteredFooter = true;
-            if (enteredFooter && window.scrollY <= 1) rearmSections();
-          }, { passive: true });
+            const useGlass = heroVisible || footerVisible;
+            nav.classList.toggle('glass', useGlass);
+            nav.classList.toggle('dark', !useGlass);
+          }
 
-          let wheelLock = false;
-          window.addEventListener('wheel', (e) => {
-            if (released){
-              if (window.scrollY <= 1 && e.deltaY < -8){
-                e.preventDefault();
-                rearmSections();
-                goTo(lastIdx - 1);
+          function revealVisibleSections(){
+            const vh = window.innerHeight;
+            watched.forEach((item) => {
+              if (item.done) return;
+              const rect = item.el.getBoundingClientRect();
+              if (rect.top < vh * 0.78 && rect.bottom > vh * 0.18){
+                item.done = true;
+                item.fn();
               }
-              return;
-            }
-            if (current === lastIdx && e.deltaY > 8 && !animating && !wheelLock){
-              releaseFooter(Math.max(180, Math.abs(e.deltaY)));
-              return;
-            }
-            e.preventDefault();
-            if (wheelLock || animating || Math.abs(e.deltaY) < 8) return;
-            wheelLock = true;
-            goTo(current + (e.deltaY > 0 ? 1 : -1));
-            setTimeout(() => { wheelLock = false; }, 1100);
-          }, { passive: false });
+            });
+          }
 
-          window.addEventListener('keydown', (e) => {
-            if (released) return;
-            if (['ArrowDown','PageDown',' '].includes(e.key)) {
-              if (current === lastIdx){ releaseFooter(window.innerHeight * 0.45); return; }
-              e.preventDefault(); goTo(current + 1);
-            }
-            else if (['ArrowUp','PageUp'].includes(e.key)) { e.preventDefault(); goTo(current - 1); }
-            else if (e.key === 'Home') { e.preventDefault(); goTo(0); }
-          });
+          if ('IntersectionObserver' in window){
+            const observer = new IntersectionObserver((entries) => {
+              entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                const item = watched.find((candidate) => candidate.el === entry.target);
+                if (!item || item.done) return;
+                item.done = true;
+                item.fn();
+                observer.unobserve(entry.target);
+              });
+            }, { rootMargin: '0px 0px -22% 0px', threshold: 0.12 });
+            watched.forEach((item) => observer.observe(item.el));
+          }
 
-          let touchY = null;
-          window.addEventListener('touchstart', (e) => { touchY = e.touches[0].clientY; }, { passive: true });
-          window.addEventListener('touchmove', (e) => {
-            if (released || touchY == null || animating) return;
-            const dy = touchY - e.touches[0].clientY;
-            if (Math.abs(dy) > 40){
-              if (current === lastIdx && dy > 0){ releaseFooter(Math.max(180, dy)); touchY = null; return; }
-              goTo(current + (dy > 0 ? 1 : -1));
-              touchY = null;
-            }
-          }, { passive: true });
-
-          setNavForSection(0);
-          setCurtain(false);
+          let navFrame = 0;
+          const requestNavUpdate = () => {
+            if (navFrame) return;
+            navFrame = requestAnimationFrame(() => {
+              navFrame = 0;
+              updateNavTheme();
+              revealVisibleSections();
+            });
+          };
+          window.addEventListener('scroll', requestNavUpdate, { passive: true });
+          window.addEventListener('resize', requestNavUpdate, { passive: true });
+          updateNavTheme();
+          revealVisibleSections();
 
           const hash = location.hash.replace('#', '');
           if (hash){
-            const i = sections.findIndex(s => s.dataset.anchor === hash);
-            if (i > 0){
-              wrap.style.transition = 'none';
-              current = i;
-              wrap.style.transform = `translateY(-${i * 100}vh)`;
-              setNavForSection(i);
-              setCurtain(true);
-              if (i >= 1) triggerS2();
-              if (i >= 2) triggerS3();
-              if (i >= 3) triggerS4();
-              void wrap.offsetHeight;
-              wrap.style.transition = TRANSITION;
-            }
+            const target = document.querySelector('[data-anchor="' + hash + '"]');
+            if (target) requestAnimationFrame(() => target.scrollIntoView());
           }
         }
 
         if (document.readyState === 'loading'){
-          document.addEventListener('DOMContentLoaded', initFullpage);
+          document.addEventListener('DOMContentLoaded', initScrollExperience);
         } else {
-          initFullpage();
+          initScrollExperience();
         }
 
 
@@ -890,6 +733,90 @@
           requestAnimationFrame(tick);
         }
 
+        function startPhoneDemo(stage) {
+          if (!stage || stage.dataset.demoStarted === 'true') return;
+
+          const commandEl = stage.querySelector('[data-demo-command]');
+          const voiceTitle = stage.querySelector('[data-demo-voice-title]');
+          const voiceCopy = stage.querySelector('[data-demo-voice-copy]');
+          if (!commandEl || !voiceTitle || !voiceCopy) return;
+
+          const command = '“Fix the authentication bug and run the tests.”';
+          const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          stage.dataset.demoStarted = 'true';
+
+          const setVoice = (title, copy) => {
+            voiceTitle.textContent = title;
+            voiceCopy.textContent = copy;
+          };
+
+          if (reducedMotion) {
+            commandEl.textContent = command;
+            setVoice('Done', 'The fix is implemented and verified.');
+            stage.classList.add('demo-reduced');
+            return;
+          }
+
+          const stateClasses = [
+            'demo-speaking',
+            'demo-approval',
+            'demo-approving',
+            'demo-running',
+            'demo-passed',
+            'demo-complete',
+            'demo-resetting'
+          ];
+          const wait = (duration) => new Promise((resolve) => window.setTimeout(resolve, duration));
+          const setState = (state) => {
+            stage.classList.remove(...stateClasses);
+            if (state) stage.classList.add(state);
+          };
+          const typeCommand = async () => {
+            commandEl.textContent = '';
+            for (const character of command) {
+              commandEl.textContent += character;
+              await wait(character === ' ' ? 22 : 36);
+            }
+          };
+
+          stage.classList.add('demo-active');
+
+          const runDemo = async () => {
+            while (document.body.contains(stage)) {
+              commandEl.textContent = '';
+              setVoice('Listening', 'Speak naturally. Openbase is listening.');
+              setState('demo-speaking');
+              await wait(900);
+              await typeCommand();
+              await wait(450);
+
+              setVoice('Listening', 'Your request is ready to continue.');
+              setState('demo-approval');
+              await wait(1550);
+
+              setState('demo-approving');
+              await wait(680);
+
+              setVoice('Working', 'Applying the fix on your connected Mac.');
+              setState('demo-running');
+              await wait(2150);
+
+              setVoice('Passed', 'All 24 authentication tests finished with no failures.');
+              setState('demo-passed');
+              await wait(1250);
+
+              setVoice('Done', 'The fix is implemented and verified.');
+              setState('demo-complete');
+              await wait(4400);
+
+              setState('demo-resetting');
+              await wait(620);
+            }
+          };
+
+          runDemo();
+        }
+
         function runIntro() {
           function splitLetters(root){
             let i = 0;
@@ -920,7 +847,7 @@
           const h1         = document.querySelector('.hero h1');
           const sub        = document.querySelector('.hero p.sub');
           const ctasBtns   = document.querySelector('.hero .ctas');
-          const browserEl  = document.querySelector('.browser');
+          const phoneStage = document.querySelector('.device-stage');
           const brand      = document.querySelector('.nav .brand');
           const links      = [...document.querySelectorAll('.nav .links a')];
           const signin     = document.querySelector('.nav .right .signin');
@@ -977,11 +904,11 @@
 
 
           setTimeout(() => {
-            if (browserEl) browserEl.classList.add('intro-browser-in');
+            if (phoneStage) {
+              phoneStage.classList.add('intro-phone-in');
+              startPhoneDemo(phoneStage);
+            }
 
-            setTimeout(() => {
-              document.querySelectorAll('.kpi .val').forEach(el => countUp(el, 1500));
-            }, 1500);
           }, linksEnd + subEnd + 300);
 
 
