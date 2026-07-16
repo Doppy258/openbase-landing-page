@@ -33,7 +33,10 @@ export function BetaSignup({ accessGranted }: BetaSignupProps) {
   );
 
   useEffect(() => {
-    setMount(document.getElementById("betaSignupMount"));
+    const target = document.getElementById("betaSignupMount");
+    target?.classList.remove("beta-cta-slot--fallback");
+    target?.querySelectorAll("[data-beta-fallback]").forEach((element) => element.remove());
+    setMount(target);
 
     const params = new URLSearchParams(window.location.search);
 

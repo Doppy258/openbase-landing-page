@@ -19,7 +19,165 @@
 
         const legacyRoot = document.querySelector('[data-legacy-page]');
         const betaAccessGranted = legacyRoot?.dataset.betaAccess === 'true';
+        const betaMount = document.getElementById('betaSignupMount');
         const betaTriggers = [...document.querySelectorAll('[data-beta-trigger]')];
+        const betaParams = new URLSearchParams(window.location.search);
+        let fallbackBetaSource = betaParams.get('source') || 'hero';
+
+        function openFallbackBetaForm(source = 'hero') {
+          fallbackBetaSource = source;
+          const signup = betaMount?.querySelector('[data-beta-fallback]');
+          if (!signup) return;
+
+          const input = signup.querySelector('#betaEmailFallback');
+          const status = signup.querySelector('#betaStatusFallback');
+          const button = signup.querySelector('.beta-signup__button');
+
+          signup.classList.add('is-expanded');
+          button?.setAttribute('aria-expanded', 'true');
+          input?.removeAttribute('disabled');
+          input?.setAttribute('tabindex', '0');
+          if (status) {
+            status.textContent = '';
+            status.className = 'beta-signup__status';
+          }
+
+          window.requestAnimationFrame(() => input?.focus());
+        }
+
+        function renderBetaFallback() {
+          if (!betaMount) return;
+          betaMount.classList.remove('beta-cta-slot--fallback');
+          const existingFallback = betaMount.querySelector('[data-beta-fallback]');
+          if (!existingFallback && betaMount.children.length) return;
+
+          if (betaAccessGranted) {
+            betaMount.innerHTML = `
+              <div class="beta-signup beta-signup--unlocked" data-beta-fallback>
+                <a class="btn primary beta-signup__open" href="/install">
+                  <span>Open Downloads</span>
+                  <svg aria-hidden="true" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+                    <path d="M4 10h12M11 5l5 5-5 5" stroke-linecap="round" stroke-linejoin="round"></path>
+                  </svg>
+                </a>
+              </div>`;
+            return;
+          }
+
+          betaMount.innerHTML = `
+            <div class="beta-signup" id="join-beta" data-beta-fallback>
+              <form novalidate>
+                <div class="beta-signup__shell">
+                  <label class="sr-only" for="betaEmailFallback">Email address</label>
+                  <input id="betaEmailFallback" name="email" type="email" inputmode="email" autocomplete="email"
+                    placeholder="Your email" disabled tabindex="-1" aria-describedby="betaDisclosureFallback betaStatusFallback" required>
+                  <div class="beta-signup__honeypot" aria-hidden="true">
+                    <label for="betaWebsiteFallback">Website</label>
+                    <input id="betaWebsiteFallback" name="website" type="text" tabindex="-1" autocomplete="off">
+                  </div>
+                  <button class="btn primary beta-signup__button" type="submit" aria-expanded="false">
+                    <span>Join Beta</span>
+                    <svg aria-hidden="true" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+                      <path d="M4 10h12M11 5l5 5-5 5" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                  </button>
+                </div>
+                <p class="beta-signup__disclosure" id="betaDisclosureFallback">
+                  Instant download access. You’ll also receive occasional Openbase product updates;
+                  unsubscribe anytime. <a href="/privacy">Privacy</a>
+                </p>
+                <p class="beta-signup__status" id="betaStatusFallback" aria-live="polite"></p>
+              </form>
+            </div>`;
+
+          const signup = betaMount.querySelector('[data-beta-fallback]');
+          if (!signup || signup.dataset.betaFallbackReady === 'true') return;
+          signup.dataset.betaFallbackReady = 'true';
+          const form = signup.querySelector('form');
+          const input = signup.querySelector('#betaEmailFallback');
+          const honeypot = signup.querySelector('#betaWebsiteFallback');
+          const button = signup.querySelector('.beta-signup__button');
+          const buttonLabel = button.querySelector('span');
+          const status = signup.querySelector('#betaStatusFallback');
+          if (existingFallback && betaParams.get('join') !== 'beta') {
+            signup.classList.remove('is-expanded');
+            button.setAttribute('aria-expanded', 'false');
+            input.setAttribute('disabled', '');
+            input.setAttribute('tabindex', '-1');
+          }
+
+          input.addEventListener('input', () => {
+            if (status.classList.contains('beta-signup__status--error')) {
+              status.textContent = '';
+              status.className = 'beta-signup__status';
+              input.setAttribute('aria-invalid', 'false');
+            }
+          });
+
+          form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            if (!signup.classList.contains('is-expanded')) {
+              openFallbackBetaForm(fallbackBetaSource);
+              return;
+            }
+
+            const email = input.value.trim();
+            if (!input.validity.valid || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+              status.textContent = 'Enter a valid email address.';
+              status.className = 'beta-signup__status beta-signup__status--error';
+              input.setAttribute('aria-invalid', 'true');
+              input.focus();
+              return;
+            }
+
+            button.disabled = true;
+            input.disabled = true;
+            buttonLabel.textContent = 'Joining…';
+            button.querySelector('svg')?.remove();
+            button.insertAdjacentHTML('beforeend', '<span class="beta-signup__spinner" aria-hidden="true"></span>');
+            status.textContent = 'Unlocking access…';
+            status.className = 'beta-signup__status';
+
+            try {
+              const response = await fetch('/api/beta', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  email,
+                  source: fallbackBetaSource,
+                  website: honeypot.value,
+                }),
+              });
+              const result = await response.json().catch(() => ({}));
+              if (!response.ok) {
+                throw new Error(result.error || 'We couldn’t unlock access. Please try again.');
+              }
+
+              buttonLabel.textContent = 'Unlocked';
+              button.querySelector('.beta-signup__spinner')?.remove();
+              button.insertAdjacentHTML('beforeend', '<svg aria-hidden="true" viewBox="0 0 20 20" fill="none" stroke="currentColor"><path d="M4 10l4 4 8-8" stroke-linecap="round" stroke-linejoin="round"></path></svg>');
+              status.textContent = result.status === 'existing' ? 'Access already unlocked' : 'Access unlocked';
+              status.className = 'beta-signup__status beta-signup__status--success';
+              window.setTimeout(() => window.location.assign('/install'), result.status === 'existing' ? 250 : 650);
+            } catch (error) {
+              button.disabled = false;
+              input.disabled = false;
+              buttonLabel.textContent = 'Join Beta';
+              button.querySelector('.beta-signup__spinner')?.remove();
+              button.insertAdjacentHTML('beforeend', '<svg aria-hidden="true" viewBox="0 0 20 20" fill="none" stroke="currentColor"><path d="M4 10h12M11 5l5 5-5 5" stroke-linecap="round" stroke-linejoin="round"></path></svg>');
+              status.textContent = error instanceof Error ? error.message : 'We couldn’t unlock access. Please try again.';
+              status.className = 'beta-signup__status beta-signup__status--error';
+              input.focus();
+            }
+          });
+
+          if (betaParams.get('join') === 'beta') {
+            openFallbackBetaForm(fallbackBetaSource);
+          }
+        }
+
+        renderBetaFallback();
 
         betaTriggers.forEach((trigger) => {
           if (betaAccessGranted) {
@@ -41,6 +199,7 @@
             window.history.replaceState({}, '', url);
             const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
             document.querySelector('.hero__copy')?.scrollIntoView({ behavior, block: 'center' });
+            openFallbackBetaForm(source);
             window.dispatchEvent(new CustomEvent('openbase:beta-open', {
               detail: { source },
             }));

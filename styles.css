@@ -1686,6 +1686,9 @@
         display:block;width:min(420px,calc(100vw - 32px));max-width:100%;padding:0;
         text-align:left;overflow:visible;
       }
+      .hero .beta-cta-slot.beta-cta-slot--fallback{
+        opacity:1;transform:none;
+      }
       .beta-signup{width:100%}
       .beta-signup form{width:100%;margin:0}
       .beta-signup__shell{

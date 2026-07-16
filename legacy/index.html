@@ -89,7 +89,32 @@
           <span class="sub-line">Speak the task, keep a live coding call open, approve commands,</span
           ><span class="sub-line">and review the diff without staying pinned to your desktop.</span>
         </p>
-        <div class="ctas beta-cta-slot" id="betaSignupMount"></div>
+        <div class="ctas beta-cta-slot beta-cta-slot--fallback" id="betaSignupMount">
+          <div class="beta-signup is-expanded" id="join-beta" data-beta-fallback>
+            <form novalidate>
+              <div class="beta-signup__shell">
+                <label class="sr-only" for="betaEmailFallback">Email address</label>
+                <input id="betaEmailFallback" name="email" type="email" inputmode="email" autocomplete="email"
+                  placeholder="Your email" tabindex="0" aria-describedby="betaDisclosureFallback betaStatusFallback" required>
+                <div class="beta-signup__honeypot" aria-hidden="true">
+                  <label for="betaWebsiteFallback">Website</label>
+                  <input id="betaWebsiteFallback" name="website" type="text" tabindex="-1" autocomplete="off">
+                </div>
+                <button class="btn primary beta-signup__button" type="submit" aria-expanded="true">
+                  <span>Join Beta</span>
+                  <svg aria-hidden="true" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+                    <path d="M4 10h12M11 5l5 5-5 5" stroke-linecap="round" stroke-linejoin="round"></path>
+                  </svg>
+                </button>
+              </div>
+              <p class="beta-signup__disclosure" id="betaDisclosureFallback">
+                Instant download access. You’ll also receive occasional Openbase product updates;
+                unsubscribe anytime. <a href="/privacy">Privacy</a>
+              </p>
+              <p class="beta-signup__status" id="betaStatusFallback" aria-live="polite"></p>
+            </form>
+          </div>
+        </div>
         </div>
       </section>
 
