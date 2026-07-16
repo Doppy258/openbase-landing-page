@@ -385,12 +385,13 @@
 .modal .modal-btns button.primary:disabled{opacity:.45;cursor:not-allowed}
 
 /* ---------- Beta download and community actions ---------- */
+.install-hero{margin-bottom:clamp(36px,4vw,44px)}
 .install-layout{
-  display:grid;grid-template-columns:minmax(560px,.92fr) minmax(0,1fr);
+  display:grid;grid-template-columns:minmax(390px,430px) minmax(0,1fr);
   gap:clamp(32px,3.2vw,48px);align-items:start;margin-bottom:clamp(56px,7vw,88px);
 }
 .install-actions{display:block;position:sticky;top:88px}
-.beta-downloads{display:grid;grid-template-columns:1fr 1fr;gap:16px;width:100%}
+.beta-downloads{display:flex;flex-direction:column;gap:14px;width:100%}
 .beta-product-card{
   position:relative;overflow:hidden;padding:20px;border-radius:20px;
   background:rgba(255,255,255,.94);border:1px solid rgba(14,10,7,.09);
@@ -433,7 +434,6 @@
 }
 .beta-product-card .beta-product-card__action.ghost:hover{background:rgba(24,73,139,.1)}
 .beta-community-card{
-  grid-column:1/-1;
   position:relative;overflow:hidden;padding:22px;border-radius:20px;color:#fff;
   background:radial-gradient(circle at 100% 0,rgba(89,166,255,.34),transparent 42%),linear-gradient(145deg,#14366f,#0b2048);
   box-shadow:0 16px 36px rgba(8,23,79,.18);
@@ -464,10 +464,10 @@
 .beta-community-card__action--primary:hover{background:#edf5ff;border-color:#edf5ff}
 .beta-community-card__action svg{width:16px;height:16px;stroke-width:1.8}
 .install-guide{margin-top:0}
+.install-guide h2{margin-bottom:20px}
+.install-guide .install-note{padding:14px 16px;margin-bottom:18px}
 @media (max-width:1120px){
-  .install-layout{grid-template-columns:minmax(390px,.82fr) minmax(0,1fr);gap:28px}
-  .beta-downloads{display:flex;flex-direction:column}
-  .beta-community-card{grid-column:auto}
+  .install-layout{grid-template-columns:minmax(360px,400px) minmax(0,1fr);gap:28px}
 }
 @media (max-width:900px){
   .install-layout{grid-template-columns:1fr;gap:44px}
