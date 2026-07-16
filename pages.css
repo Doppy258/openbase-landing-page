@@ -385,8 +385,11 @@
 .modal .modal-btns button.primary:disabled{opacity:.45;cursor:not-allowed}
 
 /* ---------- Beta download and community actions ---------- */
-.install-layout{display:block;margin-bottom:clamp(56px,7vw,88px)}
-.install-actions{display:block;position:static}
+.install-layout{
+  display:grid;grid-template-columns:minmax(560px,.92fr) minmax(0,1fr);
+  gap:clamp(32px,3.2vw,48px);align-items:start;margin-bottom:clamp(56px,7vw,88px);
+}
+.install-actions{display:block;position:sticky;top:88px}
 .beta-downloads{display:grid;grid-template-columns:1fr 1fr;gap:16px;width:100%}
 .beta-product-card{
   position:relative;overflow:hidden;padding:20px;border-radius:20px;
@@ -460,10 +463,17 @@
 .beta-community-card__action:hover{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.34)}
 .beta-community-card__action--primary:hover{background:#edf5ff;border-color:#edf5ff}
 .beta-community-card__action svg{width:16px;height:16px;stroke-width:1.8}
-.install-guide{margin-top:clamp(48px,6vw,72px)}
+.install-guide{margin-top:0}
 @media (max-width:1120px){
-  .install-actions{display:block}
-  .beta-downloads{max-width:none}
+  .install-layout{grid-template-columns:minmax(390px,.82fr) minmax(0,1fr);gap:28px}
+  .beta-downloads{display:flex;flex-direction:column}
+  .beta-community-card{grid-column:auto}
+}
+@media (max-width:900px){
+  .install-layout{grid-template-columns:1fr;gap:44px}
+  .install-actions{position:static}
+  .beta-downloads{display:grid;grid-template-columns:1fr 1fr}
+  .beta-community-card{grid-column:1/-1}
 }
 @media (max-width:680px){.beta-downloads{display:flex;flex-direction:column}}
 @media (max-width:520px){
