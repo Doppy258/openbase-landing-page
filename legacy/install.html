@@ -54,75 +54,69 @@
 
       <div class="install-layout">
         <div class="install-actions" id="access">
-          <section class="beta-access-panel" aria-labelledby="betaAccessTitle">
-            <div class="beta-access-panel__status">
-              <span class="beta-access-panel__check" aria-hidden="true">
-                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor">
-                  <path d="M4 10l4 4 8-8" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-              </span>
-              <div>
-                <span>Openbase beta</span>
-                <strong id="betaAccessTitle">All downloads unlocked</strong>
-              </div>
-            </div>
-
-            <div class="beta-access-panel__downloads">
-              <div class="beta-download-row beta-download-row--primary" id="mac">
-                <div class="beta-download-row__icon">
-                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <section class="beta-downloads" aria-label="Openbase beta downloads">
+            <article class="beta-product-card beta-product-card--mac" id="mac">
+              <div class="beta-product-card__head">
+                <div class="beta-product-card__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="currentColor">
                     <path d="M16.36 12.9c-.02-2.05 1.68-3.03 1.75-3.08-.95-1.4-2.44-1.59-2.97-1.61-1.26-.13-2.47.74-3.11.74-.64 0-1.63-.72-2.68-.7-1.38.02-2.65.8-3.36 2.03-1.43 2.49-.37 6.17 1.03 8.19.68.99 1.49 2.1 2.56 2.06 1.03-.04 1.42-.66 2.66-.66 1.24 0 1.59.66 2.68.64 1.11-.02 1.81-1 2.49-2 .78-1.15 1.1-2.26 1.12-2.32-.02-.01-2.15-.83-2.17-3.29zM14.3 6.86c.56-.68.94-1.62.84-2.56-.81.03-1.79.54-2.37 1.22-.52.6-.98 1.56-.86 2.48.9.07 1.83-.46 2.39-1.14z"/>
                   </svg>
                 </div>
-                <div class="beta-download-row__copy">
-                  <strong>Download for Mac</strong>
-                  <span>Apple Silicon · macOS 13+ · v0.1.1</span>
+                <div class="beta-product-card__copy">
+                  <span class="beta-product-card__eyebrow">Desktop companion</span>
+                  <h2>Openbase for Mac</h2>
+                  <p>Apple Silicon · macOS 13+ · v0.1.1</p>
                 </div>
-                <button class="pf-btn primary" data-download="mac">
-                  Download
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7">
-                    <path d="M10 3v10m0 0l-4-4m4 4l4-4M4 17h12" stroke-linecap="round" stroke-linejoin="round" />
-                  </svg>
-                </button>
               </div>
+              <button class="pf-btn primary beta-product-card__action" data-download="mac">
+                Download for Mac
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                  <path d="M10 3v10m0 0l-4-4m4 4l4-4M4 17h12" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </button>
+            </article>
 
-              <div class="beta-download-row" id="ios">
-                <div class="beta-download-row__icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+            <article class="beta-product-card" id="ios">
+              <div class="beta-product-card__head">
+                <div class="beta-product-card__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
                     <rect x="6" y="2.5" width="12" height="19" rx="3" />
                     <line x1="10" y1="18.5" x2="14" y2="18.5" stroke-linecap="round" />
                   </svg>
                 </div>
-                <div class="beta-download-row__copy">
-                  <strong>Open iOS Beta</strong>
-                  <span>iPhone · TestFlight</span>
+                <div class="beta-product-card__copy">
+                  <span class="beta-product-card__eyebrow">Mobile control</span>
+                  <h2>Openbase for iPhone</h2>
+                  <p>iOS beta · Delivered through TestFlight</p>
                 </div>
-                <a class="pf-btn ghost" href="https://testflight.apple.com/join/DVTh9CMH" target="_blank" rel="noopener">
-                  Open
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7">
+              </div>
+              <a class="pf-btn ghost beta-product-card__action" href="https://testflight.apple.com/join/DVTh9CMH" target="_blank" rel="noopener">
+                Open iOS Beta in TestFlight
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                  <path d="M6 14L14 6M8 6h6v6" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </a>
+            </article>
+
+            <aside class="beta-community-card" aria-labelledby="betaCommunityTitle">
+              <span class="beta-community-card__eyebrow">Build with us</span>
+              <h2 id="betaCommunityTitle">Get help. Meet the community.</h2>
+              <p>Join the builders shaping Openbase, get setup help, share feedback, and find the next live event.</p>
+              <div class="beta-community-card__actions">
+                <a class="beta-community-card__action beta-community-card__action--primary" href="https://discord.gg/nYzsn3Vh6y" target="_blank" rel="noopener">
+                  <span>Join Discord</span>
+                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" aria-hidden="true">
+                    <path d="M6 14L14 6M8 6h6v6" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </a>
+                <a class="beta-community-card__action" href="https://luma.com/mindful-makers?period=past" target="_blank" rel="noopener">
+                  <span>View Events</span>
+                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" aria-hidden="true">
                     <path d="M6 14L14 6M8 6h6v6" stroke-linecap="round" stroke-linejoin="round" />
                   </svg>
                 </a>
               </div>
-            </div>
-
-            <div class="beta-access-panel__community">
-              <a href="https://discord.gg/nYzsn3Vh6y" target="_blank" rel="noopener">
-                <span>Join Discord</span>
-                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor">
-                  <path d="M6 14L14 6M8 6h6v6" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-              </a>
-              <a href="https://luma.com/mindful-makers?period=past" target="_blank" rel="noopener">
-                <span>View Events</span>
-                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor">
-                  <path d="M6 14L14 6M8 6h6v6" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-              </a>
-            </div>
-            <p class="beta-access-panel__note">
-              Need help getting set up? The Discord community and upcoming events are one click away.
-            </p>
+            </aside>
           </section>
         </div>
 
