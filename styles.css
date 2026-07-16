@@ -588,9 +588,9 @@
         position:absolute;left:0;right:0;bottom:24px;text-align:center;
         font-size:10px;letter-spacing:.1em;font-weight:700;color:rgba(255,255,255,.75);
       }
-      .card3.a{background:url('./assets/card-a-bg.png') center/cover}
-      .card3.b{background:url('./assets/card-b-bg.png') center/cover}
-      .card3.c{background:url('./assets/card-c-bg.png') center/cover}
+      .card3.a{background:url('/assets/card-a-bg.png') center/cover}
+      .card3.b{background:url('/assets/card-b-bg.png') center/cover}
+      .card3.c{background:url('/assets/card-c-bg.png') center/cover}
 
 
       .conn-list{display:flex;flex-direction:column;gap:10px}
