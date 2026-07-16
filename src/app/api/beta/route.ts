@@ -38,6 +38,10 @@ export async function POST(request: Request) {
   }
 
   try {
+    // Resolve local/deployment configuration before creating the external
+    // contact record so a missing signing secret cannot produce duplicates.
+    const accessToken = createBetaAccessToken();
+
     await submitBetaContact({
       email,
       source: body.source,
@@ -47,7 +51,7 @@ export async function POST(request: Request) {
     const response = NextResponse.json({ ok: true });
     response.cookies.set({
       name: BETA_ACCESS_COOKIE,
-      value: createBetaAccessToken(),
+      value: accessToken,
       httpOnly: true,
       sameSite: "lax",
       secure: process.env.NODE_ENV === "production",
