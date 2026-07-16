@@ -23,6 +23,18 @@ document.querySelectorAll("[data-year]").forEach((el) => {
   el.textContent = new Date().getFullYear();
 });
 
+const legacyRoot = document.querySelector("[data-legacy-page]");
+const betaAccessGranted = legacyRoot?.dataset.betaAccess === "true";
+
+if (betaAccessGranted) {
+  document.querySelectorAll("[data-beta-link]").forEach((link) => {
+    link.setAttribute("href", "/install");
+    link.querySelectorAll("[data-beta-label]").forEach((label) => {
+      label.textContent = "Open Downloads";
+    });
+  });
+}
+
 (function () {
   const modal = document.getElementById("termsModal");
   if (!modal) return;

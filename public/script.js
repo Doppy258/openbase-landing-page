@@ -17,6 +17,36 @@
           drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => drawer.classList.remove('open')));
         }
 
+        const legacyRoot = document.querySelector('[data-legacy-page]');
+        const betaAccessGranted = legacyRoot?.dataset.betaAccess === 'true';
+        const betaTriggers = [...document.querySelectorAll('[data-beta-trigger]')];
+
+        betaTriggers.forEach((trigger) => {
+          if (betaAccessGranted) {
+            trigger.setAttribute('href', '/install');
+            trigger.querySelectorAll('[data-beta-label]').forEach((label) => {
+              label.textContent = 'Open Downloads';
+            });
+            return;
+          }
+
+          trigger.addEventListener('click', (event) => {
+            event.preventDefault();
+            drawer?.classList.remove('open');
+            const source = trigger.dataset.betaSource || 'hero';
+            const url = new URL(window.location.href);
+            url.searchParams.set('join', 'beta');
+            url.searchParams.set('next', '/install');
+            url.searchParams.set('source', source);
+            window.history.replaceState({}, '', url);
+            const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+            document.querySelector('.hero__copy')?.scrollIntoView({ behavior, block: 'center' });
+            window.dispatchEvent(new CustomEvent('openbase:beta-open', {
+              detail: { source },
+            }));
+          });
+        });
+
 
         // In-page nav uses the browser's native document scroll. Scoped to the
         // nav and drawer so decorative links elsewhere are left alone.
