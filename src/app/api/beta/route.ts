@@ -42,13 +42,16 @@ export async function POST(request: Request) {
     // contact record so a missing signing secret cannot produce duplicates.
     const accessToken = createBetaAccessToken();
 
-    await submitBetaContact({
+    const contact = await submitBetaContact({
       email,
       source: body.source,
       signupPath: getSignupPath(request),
     });
 
-    const response = NextResponse.json({ ok: true });
+    const response = NextResponse.json({
+      ok: true,
+      status: contact.status,
+    });
     response.cookies.set({
       name: BETA_ACCESS_COOKIE,
       value: accessToken,

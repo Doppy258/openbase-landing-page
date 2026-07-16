@@ -9,11 +9,15 @@ type SubmitBetaContactOptions = {
   signupPath: string;
 };
 
+type SubmitBetaContactResult = {
+  status: "created" | "existing";
+};
+
 export async function submitBetaContact({
   email,
   source: _source,
   signupPath: _signupPath,
-}: SubmitBetaContactOptions): Promise<void> {
+}: SubmitBetaContactOptions): Promise<SubmitBetaContactResult> {
   const endpoint = process.env.BETA_CONTACT_ENDPOINT?.trim() || DEFAULT_CONTACT_ENDPOINT;
 
   const response = await fetch(endpoint, {
@@ -28,7 +32,36 @@ export async function submitBetaContact({
     signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
   });
 
-  if (!response.ok) {
-    throw new Error(`Waitlist contact request failed with status ${response.status}.`);
+  if (response.ok) {
+    return { status: "created" };
   }
+
+  const responseText = await readResponseText(response);
+
+  if (isDuplicateContactResponse(response.status, responseText)) {
+    return { status: "existing" };
+  }
+
+  throw new Error(`Waitlist contact request failed with status ${response.status}.`);
+}
+
+async function readResponseText(response: Response): Promise<string> {
+  try {
+    return await response.text();
+  } catch {
+    return "";
+  }
+}
+
+function isDuplicateContactResponse(status: number, responseText: string): boolean {
+  if (status === 409 || status === 208) {
+    return true;
+  }
+
+  if (status !== 400 && status !== 422) {
+    return false;
+  }
+
+  return /\b(email|contact|signup|waitlist)\b/i.test(responseText) &&
+    /\b(already|duplicate|exists|unique)\b/i.test(responseText);
 }

@@ -107,15 +107,21 @@ export function BetaSignup({ accessGranted }: BetaSignupProps) {
           website,
         }),
       });
-      const result = (await response.json()) as { error?: string };
+      const result = (await response.json()) as {
+        error?: string;
+        status?: "created" | "existing";
+      };
 
       if (!response.ok) {
         throw new Error(result.error || "We couldn’t unlock access. Please try again.");
       }
 
       setStatus("success");
-      setMessage("Access unlocked");
-      redirectTimerRef.current = window.setTimeout(() => window.location.assign("/install"), 650);
+      setMessage(result.status === "existing" ? "Access already unlocked" : "Access unlocked");
+      redirectTimerRef.current = window.setTimeout(
+        () => window.location.assign("/install"),
+        result.status === "existing" ? 250 : 650,
+      );
     } catch (error) {
       setStatus("error");
       setMessage(

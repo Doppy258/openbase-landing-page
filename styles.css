@@ -1274,15 +1274,16 @@
         .card3.b,.card3.c{padding-top:56px}
         .insight-card,.runway{flex:initial}
 
-        .s4-inner{min-height:0;padding:72px 16px 48px}
+        #sections .section > .s4{min-height:0;height:auto}
+        .s4-inner{min-height:0;padding:72px 16px 40px}
         .orbit{
-          width:min(78vw,360px);
+          width:min(86vw,430px);
           --tile-w:clamp(52px,15vw,72px);
           --tile-h:clamp(60px,17.5vw,84px);
           --openbase:clamp(60px,17vw,84px);
         }
         .orbit-ring .tile{font-size:calc(var(--tile-w) * 0.22)!important}
-        .s4-bottom{position:static;margin-top:48px;max-width:none}
+        .s4-bottom{position:static;margin-top:40px;max-width:none}
         .filter-list,.int-pill,.sync-stamp{display:none}
       }
 
@@ -1770,7 +1771,9 @@
       }
       .beta-signup--unlocked{position:relative}
       @media (max-width:900px){
-        .hero .beta-cta-slot{margin-inline:auto;text-align:left}
+        .hero .beta-cta-slot{margin-inline:auto;text-align:center}
+        .beta-signup__shell{margin-inline:auto}
+        .hero .ctas .beta-signup__open.btn.primary{margin-inline:auto}
         .beta-signup__disclosure,.beta-signup__status{text-align:center}
       }
       @media (max-width:420px){
