@@ -3,16 +3,16 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Openbase — The Voice IDE</title>
+    <title>Openbase — The Screenless Control Surface</title>
     <meta
       name="description"
-      content="Openbase lets you write code from voice with live coding calls, Codex threads, approvals, reports, and diff review."
+      content="Openbase is the screenless control surface for AI coding work: speak the task, keep agents running, approve commands, and review the diff."
     />
     <link rel="icon" href="./assets/openbase-icon.png" />
-    <meta property="og:title" content="Openbase — The Voice IDE" />
+    <meta property="og:title" content="Openbase — The Screenless Control Surface" />
     <meta
       property="og:description"
-      content="Write code from voice. Speak the task, keep a live coding call open, approve commands, and review the diff from one control surface."
+      content="Speak the task, keep a live coding call open, approve commands, and review the diff without staying pinned to your desktop."
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://openbase.cloud/" />
@@ -40,15 +40,15 @@
       <div class="links">
         <a href="https://docs.openbase.cloud" target="_blank" rel="noopener">Docs</a>
         <a href="https://discord.gg/nYzsn3Vh6y" target="_blank" rel="noopener">Discord</a>
-        <a href="https://app.openbase.cloud/account/login">Sign In</a>
+        <a href="https://luma.com/mindful-makers?period=past" target="_blank" rel="noopener">Events</a>
       </div>
       <div class="right">
-        <a class="cta" href="./install.html">
+        <a class="cta" href="#join-beta" data-beta-trigger data-beta-source="header">
           <div class="bb-wrap" aria-hidden="true">
             <div class="bb-beam bb-beam-1"></div>
             <div class="bb-beam bb-beam-2"></div>
           </div>
-          Download
+          <span data-beta-label>Join Beta</span>
         </a>
         <button class="nav__burger" id="navBurger" aria-label="Menu"><span></span><span></span><span></span></button>
       </div>
@@ -59,8 +59,8 @@
       <button class="drawer-close" id="drawerClose">✕</button>
       <a href="https://docs.openbase.cloud" target="_blank" rel="noopener">Docs</a>
       <a href="https://discord.gg/nYzsn3Vh6y" target="_blank" rel="noopener">Discord</a>
-      <a href="https://app.openbase.cloud/account/login">Sign In</a>
-      <a href="./install.html">Download</a>
+      <a href="https://luma.com/mindful-makers?period=past" target="_blank" rel="noopener">Events</a>
+      <a href="#join-beta" data-beta-trigger data-beta-source="drawer"><span data-beta-label>Join Beta</span></a>
     </div>
 
 
@@ -82,34 +82,14 @@
             <div class="bb-beam bb-beam-1"></div>
             <div class="bb-beam bb-beam-2"></div>
           </div>
-          <span class="new">LIVE</span><span class="label">The voice IDE for real engineering work</span>
+          <span class="new">LIVE</span><span class="label">Screenless control surface</span>
         </div>
-        <h1><span class="line line1">Write Code From Voice.</span><span class="line line2">Keep The Agent&nbsp;<span class="it">Moving.</span></span></h1>
+        <h1><span class="line line1">Screenless Control.</span><span class="line line2">Keep Agents&nbsp;<span class="it">Moving.</span></span></h1>
         <p class="sub">
           <span class="sub-line">Speak the task, keep a live coding call open, approve commands,</span
-          ><span class="sub-line">and review the diff from one control surface.</span>
+          ><span class="sub-line">and review the diff without staying pinned to your desktop.</span>
         </p>
-        <div class="ctas">
-          <a class="btn primary" href="./install.html#mac" style="padding: 0px 16px; letter-spacing: -0.9px">
-            <div class="bb-wrap" aria-hidden="true">
-              <div class="bb-beam bb-beam-1"></div>
-              <div class="bb-beam bb-beam-2"></div>
-            </div>
-            Download for Mac
-            <img
-              src="./assets/arrows-double-sw-ne.png"
-              alt=""
-              style="width:18px;height:18px;flex-shrink:0;filter:brightness(0) invert(1)"
-            />
-          </a>
-          <a class="btn ghost" href="./install.html#ios" style="letter-spacing: -0.9px">
-            <div class="bb-wrap" aria-hidden="true">
-              <div class="bb-beam bb-beam-1"></div>
-              <div class="bb-beam bb-beam-2"></div>
-            </div>
-            Join iOS Beta
-          </a>
-        </div>
+        <div class="ctas beta-cta-slot" id="betaSignupMount"></div>
         </div>
       </section>
 
@@ -245,12 +225,12 @@
                     <span class="eyebrow"><span class="sq"></span>WHY IT EXISTS</span>
                   </div>
                   <div>
-                    <h2>A voice IDE for<br />real engineering work</h2>
+                    <h2>A screenless control surface for<br />real engineering work</h2>
                     <p class="lede">
                       <span class="sub-line"
                         >Turn spoken intent into managed Codex sessions on your workspace.</span
                       ><span class="sub-line"
-                        >Run calls, threads, approvals, reports, and diffs from the iOS app.</span>
+                        >Keep calls, threads, approvals, reports, and diffs within reach from the iOS app.</span>
                     </p>
                   </div>
                   <div></div>
@@ -259,8 +239,8 @@
               <div class="bottom">
                 <div class="left">
                   <p>
-                    Voice is not dictation. It is the command interface for a full coding environment that can keep
-                    long-running agent work visible.
+                    Voice is not dictation. It is the control layer for a full coding environment, built to keep
+                    long-running agent work moving when you are away from the keyboard.
                   </p>
                   <a class="meet" href="https://docs.openbase.cloud" target="_blank" rel="noopener">
                     View Docs
@@ -465,7 +445,7 @@
                 </div>
                 <div class="openbase-label" aria-hidden="true">
                   <div class="n">Openbase</div>
-                  <div class="k">ONE CONTROL SURFACE</div>
+                  <div class="k">SCREENLESS CONTROL SURFACE</div>
                 </div>
 
                 <div class="orbit-ring">
@@ -507,7 +487,7 @@
 
               <div class="s4-bottom">
                 <div class="eyebrow"><span class="sq"></span>WORKS WITH YOUR STACK</div>
-                <h2>One Remote For<br /><span class="it">Every Agent</span></h2>
+                <h2>Voice Control For<br /><span class="it">Your Agent Stack</span></h2>
               </div>
 
               <div class="int-pill">
@@ -528,7 +508,7 @@
                 </div>
               </div>
 
-              <div class="sync-stamp">VOICE ROUTING STAYS LIVE</div>
+              <div class="sync-stamp">SCREENLESS ROUTING STAYS LIVE</div>
             </div>
           </section>
 
@@ -541,9 +521,9 @@
           <div class="footer-grid" aria-hidden="true"></div>
           <div class="footer-inner">
             <div class="footer-top">
-              <h3>Write code from voice.<br /><span class="it">Keep the agent moving.</span></h3>
-              <a class="footer-cta" href="./install.html">
-                Get Openbase
+              <h3>The screenless control surface.<br /><span class="it">Keep the agent moving.</span></h3>
+              <a class="footer-cta" href="#join-beta" data-beta-trigger data-beta-source="footer">
+                <span data-beta-label>Join Beta</span>
                 <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6">
                   <path d="M4 10h12 M11 5l5 5-5 5" />
                 </svg>
@@ -552,9 +532,9 @@
             <div class="footer-columns">
               <div class="footer-col">
                 <h6>Product</h6>
-                <a href="./install.html">Install</a>
+                <a href="#join-beta" data-beta-trigger data-beta-source="footer"><span data-beta-label>Join Beta</span></a>
                 <a href="https://docs.openbase.cloud" target="_blank" rel="noopener">Docs</a>
-                <a href="https://app.openbase.cloud/account/login">Sign In</a>
+                <a href="https://luma.com/mindful-makers?period=past" target="_blank" rel="noopener">Events</a>
               </div>
               <div class="footer-col">
                 <h6>Community</h6>

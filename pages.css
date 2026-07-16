@@ -383,3 +383,75 @@
 }
 .modal .modal-btns button.primary{background:#2352DE;color:#fff;border-color:transparent}
 .modal .modal-btns button.primary:disabled{opacity:.45;cursor:not-allowed}
+
+/* ---------- Unified beta access panel ---------- */
+.install-layout{
+  grid-template-columns:minmax(360px,410px) minmax(0,1fr);
+}
+.beta-access-panel{
+  position:relative;overflow:hidden;padding:22px;border-radius:24px;
+  background:
+    radial-gradient(circle at 100% 0,rgba(106,176,255,.18),transparent 42%),
+    linear-gradient(145deg,rgba(24,73,139,.11),rgba(255,255,255,.95) 48%,#fff);
+  border:1px solid rgba(35,82,222,.2);
+  box-shadow:0 18px 46px rgba(8,23,79,.13),inset 0 1px 0 rgba(255,255,255,.9);
+}
+.beta-access-panel::before{
+  content:"";position:absolute;left:24px;right:24px;top:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(70,132,231,.78),transparent);
+}
+.beta-access-panel__status{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.beta-access-panel__check{
+  display:grid;place-items:center;width:38px;height:38px;flex:0 0 auto;border-radius:12px;
+  color:#fff;background:linear-gradient(145deg,#2352DE,#18498B);
+  box-shadow:0 8px 18px rgba(35,82,222,.28);
+}
+.beta-access-panel__check svg{width:18px;height:18px;stroke-width:2}
+.beta-access-panel__status div{display:flex;flex-direction:column;gap:2px}
+.beta-access-panel__status span{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue-2)}
+.beta-access-panel__status strong{font-size:17px;letter-spacing:-.035em}
+.beta-access-panel__downloads{
+  overflow:hidden;border-radius:17px;border:1px solid rgba(14,10,7,.07);background:rgba(255,255,255,.72);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9);
+}
+.beta-download-row{
+  display:grid;grid-template-columns:42px minmax(0,1fr) auto;align-items:center;gap:12px;
+  padding:15px;
+}
+.beta-download-row + .beta-download-row{border-top:1px solid rgba(14,10,7,.07)}
+.beta-download-row--primary{background:linear-gradient(100deg,rgba(35,82,222,.055),transparent)}
+.beta-download-row__icon{
+  display:grid;place-items:center;width:42px;height:42px;border-radius:12px;
+  color:var(--ink);background:rgba(14,10,7,.045);border:1px solid var(--line);
+}
+.beta-download-row--primary .beta-download-row__icon{color:#fff;background:#0b1f45;border-color:rgba(35,82,222,.28)}
+.beta-download-row__icon svg{width:22px;height:22px}
+.beta-download-row__copy{min-width:0;display:flex;flex-direction:column;gap:4px}
+.beta-download-row__copy strong{font-size:14px;letter-spacing:-.025em}
+.beta-download-row__copy span{font-size:11px;color:var(--muted-3);white-space:nowrap}
+.beta-download-row .pf-btn{width:auto;height:38px;padding-inline:14px;font-size:13px;border-radius:10px}
+.beta-access-panel__community{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.beta-access-panel__community a{
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+  min-height:42px;padding:0 13px;border-radius:12px;text-decoration:none;
+  background:rgba(24,73,139,.055);border:1px solid rgba(24,73,139,.11);
+  color:var(--blue);font-size:12.5px;font-weight:600;transition:transform .18s ease,background .18s ease;
+}
+.beta-access-panel__community a:hover{transform:translateY(-1px);background:rgba(24,73,139,.09)}
+.beta-access-panel__community svg{width:15px;height:15px;stroke-width:1.8}
+.beta-access-panel__note{margin:14px 2px 0;color:var(--muted-3);font-size:11.5px;line-height:1.45}
+@media (max-width:1120px){
+  .install-layout{grid-template-columns:1fr}
+  .install-actions{display:block}
+  .beta-access-panel{max-width:720px}
+}
+@media (max-width:520px){
+  .beta-access-panel{padding:16px;border-radius:20px}
+  .beta-download-row{grid-template-columns:38px minmax(0,1fr);gap:10px;padding:13px}
+  .beta-download-row__icon{width:38px;height:38px}
+  .beta-download-row .pf-btn{grid-column:1/-1;width:100%;margin-top:2px}
+  .beta-access-panel__community{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  .beta-access-panel__community a,.pf-btn{transition:none!important}
+}

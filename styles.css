@@ -1674,3 +1674,116 @@
         .ios-command-card,.ios-assistant-message,.ios-approval-sheet,.ios-tests-passed,
         .approval-request-view,.approval-running-view{transition:none!important}
       }
+
+      /* ===== Beta-first acquisition control ===== */
+      .sr-only{
+        position:absolute!important;width:1px!important;height:1px!important;padding:0!important;
+        margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;
+        white-space:nowrap!important;border:0!important;
+      }
+      .hero .beta-cta-slot{
+        display:block;width:min(420px,calc(100vw - 32px));max-width:100%;padding:0;
+        text-align:left;overflow:visible;
+      }
+      .beta-signup{width:100%}
+      .beta-signup form{width:100%;margin:0}
+      .beta-signup__shell{
+        position:relative;width:min(223px,100%);height:48px;overflow:hidden;
+        border:1px solid rgba(255,255,255,.38);border-radius:16px;
+        background:
+          linear-gradient(105deg,rgba(255,255,255,.26),rgba(255,255,255,.10)),
+          rgba(5,27,70,.25);
+        box-shadow:
+          inset 0 1px 0 rgba(255,255,255,.34),
+          inset 0 -10px 26px rgba(46,117,205,.12),
+          0 10px 32px rgba(0,12,40,.22);
+        backdrop-filter:blur(22px) saturate(165%);
+        -webkit-backdrop-filter:blur(22px) saturate(165%);
+        transition:width 280ms cubic-bezier(.2,.75,.25,1),box-shadow 280ms ease,background 280ms ease;
+      }
+      .beta-signup.is-expanded .beta-signup__shell{
+        width:100%;
+        background:
+          linear-gradient(105deg,rgba(255,255,255,.36),rgba(255,255,255,.15)),
+          rgba(5,27,70,.3);
+        box-shadow:
+          inset 0 1px 0 rgba(255,255,255,.48),
+          inset 0 -10px 28px rgba(74,146,226,.14),
+          0 14px 38px rgba(0,12,40,.26);
+      }
+      .beta-signup__shell::before{
+        content:"";position:absolute;inset:1px;border-radius:14px;pointer-events:none;
+        background:linear-gradient(110deg,rgba(255,255,255,.13),transparent 36%,rgba(166,218,255,.08));
+      }
+      .beta-signup__shell input[type="email"]{
+        position:absolute;left:0;top:0;width:calc(100% - 128px);height:100%;
+        padding:0 10px 0 18px;border:0;outline:0;background:transparent;color:#fff;
+        font:500 14px/1 var(--font-sans);letter-spacing:-.025em;
+        opacity:0;transform:translateX(-12px);pointer-events:none;
+        transition:opacity 180ms ease 70ms,transform 280ms cubic-bezier(.2,.75,.25,1);
+      }
+      .beta-signup__shell input[type="email"]::placeholder{color:rgba(255,255,255,.64)}
+      .beta-signup.is-expanded .beta-signup__shell input[type="email"]{
+        opacity:1;transform:none;pointer-events:auto;
+      }
+      .beta-signup__shell:focus-within{
+        border-color:rgba(174,219,255,.9);
+        box-shadow:
+          0 0 0 3px rgba(84,161,255,.25),
+          inset 0 1px 0 rgba(255,255,255,.48),
+          0 14px 38px rgba(0,12,40,.28);
+      }
+      .hero .ctas .beta-signup__button.btn.primary,
+      .hero .ctas .beta-signup__open.btn.primary{
+        position:absolute;right:4px;top:4px;width:calc(100% - 8px)!important;height:40px;
+        min-width:0!important;padding:0 16px!important;border-radius:12px;
+        gap:8px;white-space:nowrap;z-index:2;
+        transition:width 280ms cubic-bezier(.2,.75,.25,1),background 180ms ease,box-shadow 180ms ease;
+      }
+      .hero .ctas .beta-signup__open.btn.primary{
+        position:relative;right:auto;top:auto;width:min(223px,100%)!important
+      }
+      .beta-signup.is-expanded .beta-signup__button.btn.primary{width:124px!important}
+      .beta-signup__button svg,.beta-signup__open svg{width:16px;height:16px;flex:0 0 auto;stroke-width:1.8}
+      .beta-signup__button:disabled{cursor:wait}
+      .beta-signup__spinner{
+        width:14px;height:14px;border:1.5px solid rgba(255,255,255,.4);
+        border-top-color:#fff;border-radius:50%;animation:betaSpin .7s linear infinite;
+      }
+      @keyframes betaSpin{to{transform:rotate(360deg)}}
+      .beta-signup__disclosure{
+        width:100%;margin:9px 0 0;color:rgba(255,255,255,.66);
+        font:500 10.5px/1.4 var(--font-sans);letter-spacing:-.01em;text-shadow:0 1px 8px rgba(0,8,30,.3);
+      }
+      .beta-signup__disclosure a{
+        color:rgba(255,255,255,.86);text-decoration:underline;text-underline-offset:2px;
+      }
+      .beta-signup__status{
+        min-height:17px;margin:3px 0 0;color:rgba(255,255,255,.8);
+        font:600 11px/1.4 var(--font-sans);
+      }
+      .beta-signup__status--error{color:#ffd0d0}
+      .beta-signup__status--success{color:#c5ffd9}
+      .beta-signup__honeypot{
+        position:absolute!important;left:-10000px!important;width:1px!important;height:1px!important;
+        overflow:hidden!important;
+      }
+      .beta-signup--unlocked{position:relative}
+      @media (max-width:900px){
+        .hero .beta-cta-slot{margin-inline:auto;text-align:left}
+        .beta-signup__disclosure,.beta-signup__status{text-align:center}
+      }
+      @media (max-width:420px){
+        .hero .beta-cta-slot{width:calc(100vw - 32px)}
+        .beta-signup__shell{height:46px}
+        .hero .ctas .beta-signup__button.btn.primary,
+        .hero .ctas .beta-signup__open.btn.primary{height:38px;font-size:12px!important}
+        .beta-signup.is-expanded .beta-signup__button.btn.primary{width:112px!important}
+        .beta-signup__shell input[type="email"]{width:calc(100% - 114px);padding-left:15px;font-size:13px}
+        .beta-signup__disclosure{font-size:10px}
+      }
+      @media (prefers-reduced-motion:reduce){
+        .beta-signup__shell,.beta-signup__shell input[type="email"],
+        .hero .ctas .beta-signup__button.btn.primary{transition:none!important}
+        .beta-signup__spinner{animation-duration:1.4s}
+      }
