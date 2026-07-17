@@ -7,7 +7,7 @@ import { BETA_ACCESS_COOKIE, hasValidBetaAccess } from "@/lib/beta-access";
 export const metadata: Metadata = {
   title: "Openbase — The Voice IDE",
   description:
-    "Openbase lets you run Codex by voice with live calls, command approvals, reports, and diff review.",
+    "Openbase lets you run coding agents by voice with live calls, command approvals, reports, and diff review.",
   openGraph: {
     title: "Openbase — The Voice IDE",
     description:

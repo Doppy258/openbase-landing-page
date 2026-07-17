@@ -77,8 +77,6 @@
 }
 .install-hero h1 .it{
   font-family:inherit;font-style:normal;font-weight:600;letter-spacing:inherit;color:#18498B;
-  text-decoration:underline;text-decoration-color:rgba(35,82,222,.22);
-  text-decoration-thickness:.08em;text-underline-offset:.08em;
 }
 .install-hero p{font-size:clamp(16px,1.5vw,20px);line-height:1.5;color:var(--muted-2);margin:0;max-width:600px}
 
@@ -203,8 +201,6 @@
 }
 .section-block h2 .it{
   font-family:inherit;font-style:normal;font-weight:600;letter-spacing:inherit;color:#18498B;
-  text-decoration:underline;text-decoration-color:rgba(35,82,222,.22);
-  text-decoration-thickness:.08em;text-underline-offset:.08em;
 }
 .section-block .lede{font-size:16px;color:var(--muted-2);margin:0 0 clamp(32px,4vw,48px);max-width:560px}
 
@@ -215,8 +211,6 @@
 }
 .install-guide h2 .it{
   font-family:inherit;font-style:normal;font-weight:600;letter-spacing:inherit;color:#18498B;
-  text-decoration:underline;text-decoration-color:rgba(35,82,222,.22);
-  text-decoration-thickness:.08em;text-underline-offset:.08em;
 }
 
 .steps-2x2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,1.6vw,22px)}

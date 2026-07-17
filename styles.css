@@ -241,14 +241,7 @@
       .hero h1 .line{display:block;white-space:nowrap;text-align:center}
       .hero h1 .it{
         font-family:inherit;font-style:normal;font-weight:600;
-        letter-spacing:inherit;
-      }
-      .hero h1 .it,
-      .hero h1 .it .ch{
-        text-decoration:underline;
-        text-decoration-color:rgba(84,220,234,.46);
-        text-decoration-thickness:.08em;
-        text-underline-offset:.08em;
+        letter-spacing:inherit;color:#b7e9ff;
       }
       .hero p.sub{
         margin:clamp(-35px,-3.2vw,-47px) auto 0;
@@ -338,10 +331,9 @@
       .s2 .ovals .o:first-child{margin-left:clamp(-220px,-15vw,-120px)}
       .s2 .ovals .o:nth-child(2){border-radius:0;border:1.5px solid rgba(14,10,7,.05);}
       .s2 .bottom{
-        margin-top:clamp(44px,7vh,76px);display:grid;grid-template-columns:clamp(80px,16vw,200px) 1fr auto;gap:clamp(20px,4vw,48px);align-items:end;
+        margin-top:clamp(28px,4.8vh,54px);display:grid;grid-template-columns:clamp(80px,16vw,200px) 1fr auto;gap:clamp(20px,4vw,48px);align-items:center;
       }
       .s2 .bottom .left{max-width:330px;grid-column:2}
-      .s2 .bottom .left p{font-size:clamp(12px,1vw,14px);line-height:1.15;letter-spacing:-0.02em;color:rgba(14,10,7,.85);margin:0 0 16px}
       .s2 .meet{
         display:inline-flex;align-items:center;gap:8px;height:clamp(38px,4vw,46px);padding:0 clamp(10px,1.5vw,16px);
         border-radius:14px;background:rgba(0,0,0,.07);color:var(--ink);font-size:clamp(13px,1.2vw,16px);letter-spacing:-0.03em;font-weight:500;
@@ -362,7 +354,6 @@
 
 
       .s2 .grid > div:first-child .eyebrow,
-      .s2 .bottom .left p,
       .s2 .bottom .left .meet,
       .s2 .stats .stat{
         opacity:0;transform:translateY(22px);will-change:transform,opacity;
@@ -387,7 +378,6 @@
       }
       .s2 .lede .sub-line{display:block;opacity:0;transform:translateY(18px);will-change:transform,opacity}
       .s2-in .lede .sub-line.in{animation:introSubLine .7s cubic-bezier(.22,.61,.36,1) forwards}
-      .s2-in .bottom .left p{animation:s2FadeUp .7s cubic-bezier(.22,.61,.36,1) .85s forwards}
       .s2-in .bottom .left .meet{animation:s2MeetPop 1.1s cubic-bezier(.22,.61,.36,1) 1.15s forwards}
       .s2-in .stats .stat.violet{animation:s2BtnPop 1.1s cubic-bezier(.22,.61,.36,1) 1.35s forwards}
       .s2-in .stats .stat.blue{animation:s2BtnPop 1.1s cubic-bezier(.22,.61,.36,1) 1.65s forwards}
@@ -442,8 +432,6 @@
         font-size:clamp(36px,3.8vw,56px);letter-spacing:-0.06em;line-height:1;font-weight:500;margin:0 0 clamp(8px,1.5vh,16px);color:var(--ink);text-wrap:pretty;
       }
       .s3-head h2 .it{font-family:inherit;font-style:normal;font-weight:600;letter-spacing:inherit;color:#18498B}
-      .s3-head h2 .it,
-      .s3-head h2 .it .ch{text-decoration:underline;text-decoration-color:rgba(35,82,222,.22);text-decoration-thickness:.08em;text-underline-offset:.08em}
       .s3-head p{font-size:clamp(12px,0.95vw,14px);line-height:1.35;letter-spacing:-0.02em;color:rgba(14,10,7,.65);margin:0 auto;max-width:448px}
 
 
@@ -936,8 +924,6 @@
         font-size:clamp(42px,4vw,66px);letter-spacing:-0.05em;line-height:1;font-weight:500;margin:0;color:var(--ink);text-wrap:pretty;
       }
       .s4-bottom h2 .it{font-family:inherit;font-style:normal;font-weight:600;letter-spacing:inherit;color:#18498B}
-      .s4-bottom h2 .it,
-      .s4-bottom h2 .it .ch{text-decoration:underline;text-decoration-color:rgba(35,82,222,.22);text-decoration-thickness:.08em;text-underline-offset:.08em}
 
       .filter-list{
         position:absolute;right:clamp(6px,1vw,10px);top:clamp(120px,18vh,220px);width:clamp(140px,13vw,180px);height:clamp(200px,28vh,280px);
@@ -1017,7 +1003,7 @@
       .footer-top h3{
         font-size:clamp(28px,3.2vw,46px);letter-spacing:-0.05em;font-weight:500;line-height:1.05;margin:0;max-width:560px;
       }
-      .footer-top h3 .it{font-family:inherit;font-style:normal;font-weight:600;letter-spacing:inherit;color:#b7e9ff;text-decoration:underline;text-decoration-color:rgba(84,220,234,.32);text-decoration-thickness:.08em;text-underline-offset:.08em}
+      .footer-top h3 .it{font-family:inherit;font-style:normal;font-weight:600;letter-spacing:inherit;color:#b7e9ff}
       .footer-cta{
         display:inline-flex;align-items:center;gap:8px;flex-shrink:0;
         height:44px;padding:0 20px;border-radius:12px;text-decoration:none;
