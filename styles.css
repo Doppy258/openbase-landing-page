@@ -829,11 +829,11 @@
       }
       .orbit{
         position:relative;
-        width:min(680px, 82vw, calc(100vh - 260px));
-        aspect-ratio:1/1;height:auto;margin:clamp(12px,2.5vh,30px) auto 0;
-        --tile-w: clamp(72px, min(16.3vw, calc((100vh - 260px) * 0.2), 135.485px), 135.485px);
-        --tile-h: clamp(84px, min(19vw,  calc((100vh - 260px) * 0.232), 158px), 158px);
-        --openbase: clamp(72px, min(14vw, calc((100vh - 260px) * 0.2), 158px), 158px);
+        width:min(620px, 74vw, calc(100vh - 310px));
+        aspect-ratio:1/1;height:auto;margin:clamp(-94px,-7vh,-54px) auto 0;
+        --tile-w: clamp(68px, min(14.5vw, calc((100vh - 310px) * 0.2), 124px), 124px);
+        --tile-h: clamp(80px, min(17vw,  calc((100vh - 310px) * 0.232), 145px), 145px);
+        --openbase: clamp(70px, min(12.5vw, calc((100vh - 310px) * 0.2), 144px), 144px);
       }
       .orbit-ring{
         position:absolute;inset:0;
@@ -919,7 +919,7 @@
       .orbit-ring .g9{ --rot: 87.815deg }
 
       .s4-bottom{
-        position:absolute;left:clamp(24px,3vw,40px);bottom:clamp(28px,5vh,60px);max-width:587px;
+        position:absolute;left:clamp(24px,3vw,40px);bottom:clamp(20px,3vh,34px);max-width:560px;
       }
       .s4-bottom .eyebrow{margin-bottom:clamp(14px,1.8vw,24px)}
       .s4-bottom h2{

@@ -5,13 +5,13 @@ import { LegacyPage } from "@/components/legacy-page";
 import { BETA_ACCESS_COOKIE, hasValidBetaAccess } from "@/lib/beta-access";
 
 export const metadata: Metadata = {
-  title: "Openbase — The Screenless Control Surface",
+  title: "Openbase — The Voice IDE",
   description:
-    "Openbase is the screenless control surface for AI coding work: speak the task, keep agents running, approve commands, and review the diff.",
+    "Openbase lets you write code from voice with live coding calls, Codex threads, approvals, reports, and diff review.",
   openGraph: {
-    title: "Openbase — The Screenless Control Surface",
+    title: "Openbase — The Voice IDE",
     description:
-      "Speak the task, keep a live coding call open, approve commands, and review the diff without staying pinned to your desktop.",
+      "Write code from voice. Speak the task, keep a live coding call open, approve commands, and review the diff from a screenless control surface.",
     type: "website",
     url: "/",
     images: ["/assets/openbase-icon.png"],
