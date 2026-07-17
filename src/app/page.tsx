@@ -7,11 +7,11 @@ import { BETA_ACCESS_COOKIE, hasValidBetaAccess } from "@/lib/beta-access";
 export const metadata: Metadata = {
   title: "Openbase — The Voice IDE",
   description:
-    "Openbase lets you write code from voice with live coding calls, Codex threads, approvals, reports, and diff review.",
+    "Openbase lets you run Codex by voice with live calls, command approvals, reports, and diff review.",
   openGraph: {
     title: "Openbase — The Voice IDE",
     description:
-      "Write code from voice. Speak the task, keep a live coding call open, approve commands, and review the diff from a screenless control surface.",
+      "Write code from voice. Keep a live coding call open, approve commands, review diffs, and send the next instruction.",
     type: "website",
     url: "/",
     images: ["/assets/openbase-icon.png"],
