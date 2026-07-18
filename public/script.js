@@ -259,6 +259,16 @@
           });
         }
 
+        const ORBIT_REVEAL_ORDER = ['g2', 'g3', 'g6', 'g9', 'g8', 'g7', 'g4', 'g1'];
+        const ORBIT_REVEAL_RANK = new Map(ORBIT_REVEAL_ORDER.map((cls, index) => [cls, index]));
+        function orderOrbitTiles(tiles){
+          return [...tiles].sort((a, b) => {
+            const aClass = [...a.classList].find(cls => ORBIT_REVEAL_RANK.has(cls));
+            const bClass = [...b.classList].find(cls => ORBIT_REVEAL_RANK.has(cls));
+            return (ORBIT_REVEAL_RANK.get(aClass) ?? 999) - (ORBIT_REVEAL_RANK.get(bClass) ?? 999);
+          });
+        }
+
         function animateCount(el){
           const target = parseFloat(el.dataset.count);
           const prefix = el.dataset.prefix || '';
@@ -456,7 +466,7 @@
           const orbitTiles = [...document.querySelectorAll('.orbit-ring .tile')]
             .filter(t => t.style.display !== 'none');
 
-          orbitTiles.forEach(t => { t._sc = 0; t._rMul = 0; });
+          orbitTiles.forEach(t => { t._sc = 0; t._rMul = 0; t._spiralOffset = -280; });
 
 
           function easeOutBack(x){
@@ -506,12 +516,16 @@
           openbaseTile.style.opacity     = '1';
 
 
-          labelItems.forEach(function(el, i){
-            var delay = 1200 + i * 260;
-            el.style.transition = 'opacity 1200ms ease ' + delay + 'ms, transform 1200ms cubic-bezier(0.34,1.35,0.64,1) ' + delay + 'ms';
-            el.style.opacity   = '1';
-            el.style.transform = 'translateY(0)';
-          });
+          setTimeout(function(){
+            openbaseLabel.style.transition = 'opacity 800ms ease';
+            openbaseLabel.style.opacity = '1';
+            labelItems.forEach(function(el, i){
+              var delay = i * 180;
+              el.style.transition = 'opacity 900ms ease ' + delay + 'ms, transform 900ms cubic-bezier(0.34,1.35,0.64,1) ' + delay + 'ms';
+              el.style.opacity   = '1';
+              el.style.transform = 'translateY(0)';
+            });
+          }, 4400);
 
 
           const s4b = document.querySelector('.s4-bottom');
@@ -591,25 +605,13 @@
           }
 
 
-          const orbitEl = document.getElementById('orbit');
-          const oRect = orbitEl.getBoundingClientRect();
-          const cx = oRect.left + oRect.width / 2;
-          const cy = oRect.top + oRect.height / 2;
-          const ordered = orbitTiles.map(t => {
-            const r = t.getBoundingClientRect();
-            const tx = r.left + r.width / 2;
-            const ty = r.top + r.height / 2;
-
-            let ang = Math.atan2(tx - cx, cy - ty) * 180 / Math.PI;
-            if (ang < 0) ang += 360;
-            return { t, ang };
-          }).sort((a, b) => a.ang - b.ang);
-          ordered.forEach(function(o, i){
-            animSc(o.t, 1800, 2100 + i * 160);
+          const ordered = orderOrbitTiles(orbitTiles);
+          ordered.forEach(function(tile, i){
+            animSc(tile, 1800, 1500 + i * 130);
           });
 
 
-          const lastOrbitDelay = 2100 + (ordered.length - 1) * 160 + 1800;
+          const lastOrbitDelay = 1500 + (ordered.length - 1) * 130 + 1800;
           setTimeout(function(){ window.__s4Done = true; }, lastOrbitDelay);
         }
 
@@ -698,17 +700,14 @@
         }
         function popInTile(tile, delay){
           tile._sc = 0;
-          tile._rMul = 0;
-          tile._spiralOffset = -300;
+          tile._rMul = 1;
+          tile._spiralOffset = 0;
           setTimeout(function(){
             const dur = 900;
             const start = performance.now();
             (function step(now){
               const t = Math.min(1, (now - start) / dur);
-              const easeOut = 1 - Math.pow(1 - t, 3);
               tile._sc = Math.max(0, Math.min(1.15, _easeOutBack(t)));
-              tile._rMul = Math.pow(easeOut, 0.618);
-              tile._spiralOffset = -300 * Math.pow(1 - t, 2);
               if (t < 1) requestAnimationFrame(step);
               else { tile._sc = 1; tile._rMul = 1; tile._spiralOffset = 0; }
             })(performance.now());
@@ -725,19 +724,8 @@
           const visible = [...document.querySelectorAll('.orbit-ring .tile')]
             .filter(t => t.style.display !== 'none');
 
-          const orbitEl = document.getElementById('orbit');
-          const oRect = orbitEl.getBoundingClientRect();
-          const cx = oRect.left + oRect.width / 2;
-          const cy = oRect.top + oRect.height / 2;
-          const ordered = visible.map(t => {
-            const r = t.getBoundingClientRect();
-            const tx = r.left + r.width / 2;
-            const ty = r.top + r.height / 2;
-            let ang = Math.atan2(tx - cx, cy - ty) * 180 / Math.PI;
-            if (ang < 0) ang += 360;
-            return { t, ang };
-          }).sort((a, b) => a.ang - b.ang);
-          ordered.forEach((o, i) => popInTile(o.t, i * 90));
+          const ordered = orderOrbitTiles(visible);
+          ordered.forEach((tile, i) => popInTile(tile, i * 90));
         }
         document.querySelectorAll('#filters button').forEach(btn => {
           btn.addEventListener('click', () => {
