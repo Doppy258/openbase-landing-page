@@ -331,7 +331,7 @@
       .s2 .ovals .o:first-child{margin-left:clamp(-220px,-15vw,-120px)}
       .s2 .ovals .o:nth-child(2){border-radius:0;border:1.5px solid rgba(14,10,7,.05);}
       .s2 .bottom{
-        margin-top:clamp(28px,4.8vh,54px);display:grid;grid-template-columns:clamp(80px,16vw,200px) 1fr auto;gap:clamp(20px,4vw,48px);align-items:center;
+        margin-top:clamp(18px,2.5vh,28px);display:grid;grid-template-columns:clamp(80px,16vw,200px) 1fr auto;gap:clamp(20px,4vw,48px);align-items:start;
       }
       .s2 .bottom .left{max-width:330px;grid-column:2}
       .s2 .meet{
@@ -1258,7 +1258,7 @@
         .s2{padding-top:0}
         .s2-inner{height:auto;min-height:0;padding:72px 20px 48px}
         .s2 .grid{grid-template-columns:1fr;gap:22px}
-        .s2 .bottom{grid-template-columns:1fr;gap:32px;margin-top:48px}
+        .s2 .bottom{grid-template-columns:1fr;gap:32px;margin-top:18px}
         .s2 .bottom .left{grid-column:auto}
         .s2 .stats{justify-self:stretch;margin-right:0;width:100%;gap:12px}
         .s2 .stats .stat{
